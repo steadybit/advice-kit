@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@v1.13.4
+oapi-codegen -config generator-config.yml ../../openapi/spec.yml > weakspot_kit_api.go

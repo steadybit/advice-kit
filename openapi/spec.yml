@@ -1,0 +1,536 @@
+openapi: 3.1.0
+info:
+  title: Steadybit WeakspotKit API
+  version: 1.0.0
+  license:
+    name: MIT
+    identifier: MIT
+consumes:
+  - application/json
+produces:
+  - application/json
+components:
+  schemas:
+    WeakspotList:
+      title: Weakspot List
+      description: Lists all weakspots that the platform/agent could consume.
+      type: object
+      properties:
+        weakspots:
+          type: array
+          items:
+            $ref: '#/components/schemas/DescribingEndpointReference'
+          uniqueItems: true
+      required:
+        - weakspots
+    WeakspotDescription:
+      title: Weakspot Description
+      description: Provides details about a weakspot
+      type: object
+      properties:
+        id:
+          type: string
+          description: "A technical ID that is used to uniquely identify this type of weakspot. You will typically want to use something like `org.example.extension.my-fancy-weakspot`."
+        version:
+          type: string
+          description: "The version of the weakspot. This is used to identify the version of the weakspot and is used for compatibility checks."
+        label:
+          type: string
+          description: "A human-readable label for the weakspot."
+        icon:
+          type: string
+          description: "A svg of an icon that represents the weakspot."
+        assesmentBaseQuery:
+#          $ref: '#/components/schemas/QueryLanguagePredicateAO'
+          type: string
+          description: "A Assessment Target Base Query that is used identifies targets that could have this weakspot."
+        assesmentQueryAddon:
+#          $ref: '#/components/schemas/QueryLanguagePredicateAO'
+          type: string
+          description: "A Assessment Target Query Addon that is used to identify targets with this weakspot."
+        tags:
+            type: array
+            items:
+                type: string
+            uniqueItems: true
+            description: "A list of tags that describe the weakspot."
+        experimentTemplates:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExperimentTemplate'
+          uniqueItems: true
+          description: "A list of experiments that are available for this weakspot."
+      required:
+        - id
+        - version
+        - label
+        - icon
+        - assesmentBaseQuery
+        - assesmentQueryAddon
+    ExperimentTemplate:
+      title: Weakspot Experiment
+      description: Provides a template about a weakspot experiment
+      ref: string
+
+#    WeakspotExperiment:
+#      title: Weakspot Experiment
+#      description: Provides a template about a weakspot experiment
+#      type: object
+#      required:
+#        - lanes
+#        - name
+#      properties:
+#        name:
+#          maxLength: 255
+#          minLength: 0
+#          type: string
+#          description: Name of the experiment to easily identify the experiment
+#          example: Shop survives unavailability of hot-deals products
+#        hypothesis:
+#          maxLength: 20000
+#          minLength: 0
+#          type: string
+#          description: The hypothesis that is validated by the experiment
+#          example: System is able to survive a latency in the network of 1500ms
+#        lanes:
+#          maxItems: 2147483647
+#          minItems: 1
+#          type: array
+#          description: The lanes (steps executed in parallel) in the experiment. Each
+#            lane consists of multiple steps that are executed sequential per lane.
+#          example:
+#            - steps:
+#                - type: action
+#                  ignoreFailure: false
+#                  parameters:
+#                    duration: 30s
+#                  actionType: com.steadybit.extension_host.stress-cpu
+#                  radius:
+#                    targetType: com.steadybit.extension_container.container
+#                    predicate:
+#                      operator: AND
+#                      predicates:
+#                        - key: k8s.deployment
+#                          operator: EQUALS
+#                          values:
+#                            - hot-deals
+#                    query: null
+#                    percentage: 100
+#          items:
+#            $ref: '#/components/schemas/ExperimentLaneAO'
+#    ExperimentLaneAO:
+#      required:
+#        - steps
+#      type: object
+#      properties:
+#        steps:
+#          maxItems: 2147483647
+#          minItems: 1
+#          type: array
+#          description: A list of steps that are executed sequentially in this lane.
+#          example:
+#            - type: action
+#              ignoreFailure: false
+#              parameters:
+#                duration: 30s
+#              actionType: com.steadybit.extension_host.stress-cpu
+#              radius:
+#                targetType: com.steadybit.extension_container.container
+#                predicate:
+#                  operator: AND
+#                  predicates:
+#                    - key: k8s.deployment
+#                      operator: EQUALS
+#                      values:
+#                        - hot-deals
+#                query: null
+#                percentage: 100
+#          items:
+#            oneOf:
+#              - $ref: '#/components/schemas/ExperimentStepActionAO'
+#              - $ref: '#/components/schemas/ExperimentStepWaitAO'
+#      description: A single lane of an experiment design. This lane can contain multiple
+#        steps that are executed sequentially
+#      example:
+#        steps:
+#          - type: action
+#            ignoreFailure: false
+#            parameters:
+#              duration: 30s
+#            actionType: com.steadybit.extension_host.stress-cpu
+#            radius:
+#              targetType: com.steadybit.extension_container.container
+#              predicate:
+#                operator: AND
+#                predicates:
+#                  - key: k8s.deployment
+#                    operator: EQUALS
+#                    values:
+#                      - hot-deals
+#              query: null
+#              percentage: 100
+#    ExperimentStepActionAO:
+#      required:
+#        - actionType
+#        - metricChecks
+#        - metricQueries
+#      type: object
+#      description: A single step in a lane executing always exactly one action.
+#      example:
+#        type: action
+#        ignoreFailure: false
+#        parameters:
+#          duration: 30s
+#        actionType: com.steadybit.extension_host.stress-cpu
+#        radius:
+#          targetType: com.steadybit.extension_container.container
+#          predicate:
+#            operator: AND
+#            predicates:
+#              - key: k8s.deployment
+#                operator: EQUALS
+#                values:
+#                  - hot-deals
+#          query: null
+#          percentage: 100
+#      allOf:
+#        - $ref: '#/components/schemas/BaseExperimentStepAO'
+#        - type: object
+#          properties:
+#            actionType:
+#              type: string
+#              description: The specific action that is used in this step
+#              example: com.steadybit.extension_host.stress-cpu
+#            radius:
+#              $ref: '#/components/schemas/ExperimentStepRadiusAO'
+#    ExperimentStepRadiusAO:
+#      type: object
+#      properties:
+#        targetType:
+#          type: string
+#        predicate:
+#          $ref: '#/components/schemas/TargetPredicateAO'
+#        query:
+#          $ref: '#/components/schemas/TargetPredicateAO'
+#        list:
+#          type: array
+#          deprecated: true
+#          items:
+#            type: string
+#        percentage:
+#          maximum: 100
+#          minimum: 0
+#          type: integer
+#          format: int32
+#        maximum:
+#          minimum: 0
+#          type: integer
+#          format: int32
+#      description: Specifying the targets and random blast radius of the available
+#        targets
+#      example:
+#        targetType: com.steadybit.extension_container.container
+#        predicate:
+#          operator: AND
+#          predicates:
+#            - key: k8s.deployment
+#              operator: EQUALS
+#              values:
+#                - hot-deals
+#    ExperimentStepWaitAO:
+#      required:
+#        - metricChecks
+#        - metricQueries
+#      type: object
+#      description: A single step in a lane waiting for a specified duration.
+#      example:
+#        type: wait
+#        ignoreFailure: false
+#        parameters:
+#          duration: 10s
+#      allOf:
+#        - $ref: '#/components/schemas/BaseExperimentStepAO'
+#    TargetPredicateAO:
+#      type: object
+#      oneOf:
+#        - $ref: '#/components/schemas/TargetTypePredicateAO'
+#        - $ref: '#/components/schemas/TargetNamePredicateAO'
+#        - $ref: '#/components/schemas/TargetAgentIdPredicate'
+#        - $ref: '#/components/schemas/TargetCompositePredicateAO'
+#        - $ref: '#/components/schemas/TargetAttributeKeyValuePredicateAO'
+#        - $ref: '#/components/schemas/QueryLanguagePredicateAO'
+#        - $ref: '#/components/schemas/NegationTargetPredicateAO'
+#    QueryLanguagePredicateAO:
+#      required:
+#        - query
+#      type: object
+#      allOf:
+##        - $ref: '#/components/schemas/TargetPredicateAO'
+#        - type: object
+#          properties:
+#            query:
+#              type: string
+#    NegationTargetPredicateAO:
+#      type: object
+#      allOf:
+##        - $ref: '#/components/schemas/TargetPredicateAO'
+#        - type: object
+#          properties:
+#            not:
+#              $ref: '#/components/schemas/TargetPredicateAO'
+#    TargetTypePredicateAO:
+#      required:
+#        - type
+#      type: object
+#      allOf:
+##        - $ref: '#/components/schemas/TargetPredicateAO'
+#        - type: object
+#          properties:
+#            type:
+#              type: string
+#    TargetAgentIdPredicate:
+#      type: object
+#      properties:
+#        agentId:
+#          type: string
+#          format: uuid
+#    TargetAttributeKeyValuePredicateAO:
+#      required:
+#        - key
+#        - operator
+#        - values
+#      type: object
+#      allOf:
+##        - $ref: '#/components/schemas/TargetPredicateAO'
+#        - type: object
+#          properties:
+#            key:
+#              type: string
+#            operator:
+#              type: string
+#            values:
+#              type: array
+#              items:
+#                type: string
+#    TargetCompositePredicateAO:
+#      required:
+#        - operator
+#        - predicates
+#      type: object
+#      allOf:
+##        - $ref: '#/components/schemas/TargetPredicateAO'
+#        - type: object
+#          properties:
+#            operator:
+#              type: string
+#            predicates:
+#              type: array
+#              items:
+#                $ref: '#/components/schemas/TargetPredicateAO'
+#    TargetNamePredicateAO:
+#      required:
+#        - name
+#      type: object
+#      allOf:
+##        - $ref: '#/components/schemas/TargetPredicateAO'
+#        - type: object
+#          properties:
+#            name:
+#              type: string
+#    BaseExperimentStepAO:
+#      required:
+#        - metricChecks
+#        - metricQueries
+#        - type
+#      type: object
+#      properties:
+#        ignoreFailure:
+#          type: boolean
+#          description: Ignore any errors and failures of this single step and continue
+#            the execution of an experiment run
+#          example: false
+#        parameters:
+#          type: object
+#          additionalProperties: true
+#          description: Configuration parameters of this step that are saved during
+#            experiment design and evaluated at execution time.
+#          example:
+#            duration: 30s
+#        metricQueries:
+#          maxItems: 16
+#          minItems: 0
+#          type: array
+#          description: Optional metric queries used of this step to filter e.g. monitoring
+#            data
+#          items:
+#            $ref: '#/components/schemas/MetricQueryAO'
+#        metricChecks:
+#          maxItems: 16
+#          minItems: 0
+#          type: array
+#          description: Optional metric checks used to define success or failure of
+#            this step
+#          items:
+#            $ref: '#/components/schemas/MetricCheckAO'
+#        customLabel:
+#          type: string
+#        type:
+#          type: string
+#      description: A single step in a lane.
+#      example:
+#        type: action
+#        ignoreFailure: false
+#        parameters:
+#          duration: 30s
+#        actionType: com.steadybit.extension_host.stress-cpu
+#        radius:
+#          targetType: com.steadybit.extension_container.container
+#          predicate:
+#            operator: AND
+#            predicates:
+#              - key: k8s.deployment
+#                operator: EQUALS
+#                values:
+#                  - hot-deals
+#          query: null
+#          percentage: 100
+#      discriminator:
+#        propertyName: type
+#      oneOf:
+#        - $ref: '#/components/schemas/ExperimentStepActionAO'
+#        - $ref: '#/components/schemas/ExperimentStepWaitAO'
+#    MetricQueryAO:
+#      required:
+#        - id
+#        - label
+#        - parameters
+#      type: object
+#      properties:
+#        id:
+#          type: string
+#          format: uuid
+#        label:
+#          maxLength: 256
+#          minLength: 0
+#          type: string
+#        parameters:
+#          type: object
+#          additionalProperties:
+#            type: object
+#      description: Optional metric queries used of this step to filter e.g. monitoring
+#        data
+#    MetricCheckAO:
+#      required:
+#        - a
+#        - condition
+#        - id
+#      type: object
+#      properties:
+#        id:
+#          type: string
+#          format: uuid
+#        a:
+#          $ref: '#/components/schemas/MetricValueAO'
+#        condition:
+#          type: string
+#          enum:
+#            - LT
+#            - LTE
+#            - EQ
+#            - NEQ
+#            - GT
+#            - GTE
+#            - DATA_SERIES_PRESENCE
+#        b:
+#          oneOf:
+#            - $ref: '#/components/schemas/MetricValueAO'
+#            - $ref: '#/components/schemas/ScalarValueAO'
+#      description: Optional metric checks used to define success or failure of this
+#        step
+#    MetricValueAO:
+#      type: object
+#      allOf:
+#        - $ref: '#/components/schemas/ComparableValueAO'
+#        - type: object
+#          properties:
+#            name:
+#              type: string
+#            metric:
+#              type: object
+#              additionalProperties:
+#                type: string
+#    ComparableValueAO:
+#      type: object
+#      properties:
+#        type:
+#          type: string
+#      discriminator:
+#        propertyName: type
+#    ScalarValueAO:
+#      type: object
+#      allOf:
+#        - $ref: '#/components/schemas/ComparableValueAO'
+#        - type: object
+#          properties:
+#            value:
+#              type: number
+#              format: double
+    DescribingEndpointReference:
+      title: HTTP Endpoint Reference
+      description: HTTP endpoint which the Steadybit platform/agent could communicate with.
+      properties:
+        path:
+          description: Absolute path of the HTTP endpoint.
+          type: string
+          pattern: ^/.*$
+        method:
+          description: HTTP method to use when calling the HTTP endpoint.
+          type: string
+          enum:
+            - GET
+      required:
+        - path
+        - method
+    WeakspotKitError:
+      title: Error
+      description: >-
+        RFC 7807 Problem Details for HTTP APIs compliant response body for error
+        scenarios
+      properties:
+        type:
+          type: string
+          description: A URI reference that identifies the problem type.
+        title:
+          type: string
+          description: 'A short, human-readable summary of the problem type.'
+        detail:
+          type: string
+          description: >-
+            A human-readable explanation specific to this occurrence of the
+            problem.
+        instance:
+          type: string
+          description: >-
+            A URI reference that identifies the specific occurrence of the
+            problem.
+      required:
+        - title
+  responses:
+    WeakspotListResponse:
+      title: Weakspot List Response
+      description: Response for the weakspot list endpoint
+      content:
+        application/json:
+          schema:
+            anyOf:
+              - $ref: '#/components/schemas/WeakspotList'
+              - $ref: '#/components/schemas/WeakspotKitError'
+    WeakspotDescriptionResponse:
+      title: Describe Weakspot Response
+      description: Response for the describe weakspot endpoint
+      content:
+        application/json:
+          schema:
+            anyOf:
+              - $ref: '#/components/schemas/WeakspotDescription'
+              - $ref: '#/components/schemas/WeakspotKitError'
