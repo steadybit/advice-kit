@@ -11,11 +11,7 @@ require (
 	golang.org/x/text v0.12.0
 )
 
-replace (
-	github.com/steadybit/weakspot-kit/go/weakspot_kit_api v0.1.0 => ../weakspot_kit_api
-)
-
-
+replace github.com/steadybit/weakspot-kit/go/weakspot_kit_api v0.1.0 => ../weakspot_kit_api
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
