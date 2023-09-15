@@ -1,0 +1,6 @@
+go 1.20
+
+use (
+	weakspot_kit_test
+	weakspot_kit_api
+)
