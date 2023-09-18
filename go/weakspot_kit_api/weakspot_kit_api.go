@@ -42,7 +42,7 @@ type WeakspotDescription struct {
 	// AssesmentBaseQuery A Assessment Target Base Query that is used identifies targets that could have this weakspot.
 	AssesmentBaseQuery string `json:"assesmentBaseQuery"`
 
-	// AssesmentQueryAddon A Assessment Target Query Addon that is used to identify targets with this weakspot.
+	// AssesmentQueryAddon A Assessment Target Query Addon that is used to identify targets with this weakspot in the target list of the assesmentBaseQuery
 	AssesmentQueryAddon string `json:"assesmentQueryAddon"`
 
 	// Experiments A list of experiments that are available for this weakspot.
@@ -221,25 +221,25 @@ func (t *WeakspotListResponse) UnmarshalJSON(b []byte) error {
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/7xW348jNQz+V6xwT2iu3RMPh/q2sAusALEsRQidii7NuJ3cZZK5xLPd0an/O3LmZzvZ",
-	"HyDBWztx7M+f7S/+LJQrK2fRUhCrz8JjqJwNGP/8gfJjqBxdYVBeV6SdvevO+Vg5S2iJf8qqMlpJtlh+",
-	"CM7yt6AKLGU8tc0vO7F691m88rgTK/HFcoy6bO3CMhFNHLOX3flR07X3zovj5ng8ZiKf+FiJHjTsnAcq",
-	"ENrjLcKhuw9o88ppSyITpMmgWImr3qgPAkPyx2zg5icd6H8ghcP8V2wMJBgdkkwMBDCKCQvHrMsndkvH",
-	"l7b7687FHe7Qo1WRmFMQP6zXt0MoOBRaFRHLb4Qyb7aaoDKSds6XS7lHS6BcbXJQrixry6QiHDQVC5GJ",
-	"yrsKPem2Z0ukwuWPBGwPgRzUAeFQoAUljdF2H4OfgGLXaOtSrN6J76/XYpMJaiqmI5DXds9NUEkq5qEu",
-	"t8GZmhD4GNwu7buSROjZ/q/l4stXYub+mAmPn2rtMWcMMVbW57cZqxM995TDyPkxE9cPFXpddv14ivLW",
-	"u3udYwAJhCWzjSC3riaQk7EYHTAa7jxpm1RrTEJNpmM6y48jyJGkNmEWflZcGQIGjvGNDPhrjb5JsA+X",
-	"bBXNYC39HgnYHKI9UCEJdOAGyEHnaEnvNAagaBna87bZCnmPQIUOA6CFSDTBACoGuMzzVK4pVC2geOEU",
-	"FrkeWTPg4m5/AZixYCEFIk64203q2mUsPYK8l9rIremV4SyWJiyj06ck6LQNOnjSe8lNU1v9qcab1g/5",
-	"Go+Z0CpNV7jfM1BpgS1akB4rj6EDjU8TofOUV0JVsHwYuLmacd7CM82EfOaAXTOUIRz86Wo4aGP4iJ2Z",
-	"Bg7SUq8rwfGQsqgY/RHhvfP7BT7IsjK4wAdCG7Szi7J5vZNWNa97v++TeRi5RZNKpahLaV97lHksWbSb",
-	"SXrSJcn9k83B5y05wzt57nPohbnz50t+jz4kBWFdIHSHvWyOpK+5FskJefwWSJsPd5gb7lhJequNpgZU",
-	"gepjWDwrvToXI+q+JF3rZilRSovCJiGbU4EcYLjtB1QnOjq86DPO7r77Ft5+ffEWbr3bGizhqhNTTjc+",
-	"DZe3NyEmbjQ3ab/hwdblTbRC9gxBoZVeuzBT3VaeX9CD+FAZaePCA6FCpXdacaniGDmlah9fpr5KVYs4",
-	"Pb42kExuDpfw+90N+P6Z66Z4IuQFjsH/WdCuOgkxKpyn7DzdUJel9M2Z56gXaffxw7/J5xnXZ+3apjHp",
-	"tm4ZPF1a50j4awBpzDA/nQxECOl1zIa6xPkWNjjgPy96OJ7aHl8iK2ccjAA2j+yx83FjH11GgX3M9vcN",
-	"9+XOcSpGK+w2/qFWXqzEzzdrkQkrS+z+jG0lxt12MtY8nhN1WYk3i4vFBV9zFVpZabESXy3eLC7albEI",
-	"YmVrYyLhea0eQ3r8OwAA//96THtJ2Q0AAA==",
+	"H4sIAAAAAAAC/7xX328jNRD+V0bmntBe0hMPh/JWaIEKEKUEIXQKOsc7yfrOa+/Zs01Xp/zvaLw/k3V/",
+	"gARvzXr2m2+++WbW/SyUKytn0VIQq8/CY6icDRh//IHyY6gcXWFQXleknb3rzvlYOUtoif+UVWW0khyx",
+	"/BCc5WdBFVjKeGqbX3Zi9e6zeOVxJ1bii+WYddnGhWUimzhmL3vnR03X3jsvjpvj8ZiJfIKxEj1p2DkP",
+	"VCC0x1uEQ/c+oM0rpy2JTJAmg2IlrvqgPgkMxR+zQZufdKD/QRRO81+pMYhgdEgqMQjALCYqHLOunuiW",
+	"Ti9t99cdxB3u0KNVUZhTEj+s17dDKjgUWhWRy2+EMm+2mqAyknbOl0u5R0ugXG1yUK4sa8uiIhw0FQuR",
+	"icq7Cj3p1rMlUuHyRxK2h0AO6oBwKNCCksZou4/JT0gxNNq6FKt34vvrtdhkgpqK5Qjktd2zCSpJxTzV",
+	"5TY4UxMCH4PbpbErSYSe4/9aLr58JWbwx0x4/FRrjzlziLmyvr7N2J2I3EsOo+bHTFw/VOh12fnxlOWt",
+	"d/c6xwASCEtWG0FuXU0gJ2MxAjAbdp60Tcoak1ST6ZjO8uMMciSpTZilnzVXhoCBc3wjA/5ao28S6sMl",
+	"R8UwWEu/RwIOhxgPVEgCHdgAOegcLemdxgAUI0N73pqtkPcIVOgwEFqIhAkGUjHBZZ6nak2xagnFF05p",
+	"keuZNQMvdvspGdA2OquNaIe3M1tCpwTxsbkhRbgHnIS1NKVHkPdSG7k1/RY5E0kTlhH0qXV1apmOnvRe",
+	"Mtva6k813rQ45Gs8ZkKrtLThfs9EpQWOaEl6rDyGjjQ+3UGdp1AJVcGrxsDN1aw/LT3TTBrFGjA0UxnS",
+	"wZ+uhoM2ho8YzDRwkJb6HRQcDzQvIKM/Irx3fr/AB1lWBhf4QGiDdnZRNq930qrmdY/7PlmHkVs0qVKK",
+	"upT2tUeZx5bFuNn6T0KS3D9pDj5vxRm+qeeYgxfm4M+3/B59SC6PdYHQHfauH0Vfcy+S0/T4WyBtPrzD",
+	"2rBjJemtNpoaUAWqj2Hx7JrWuRhZ9y3prJuJ5GCmFsgmsWKny3Sg4bYfUJ3s3OHrP9Ps7rtv4e3XF2/h",
+	"1rutwRKuusXL5cbPyOXtTYiFG80m7W+DsHV5E6OQkSEotNJrF2Ybul3lL/AgPlRG2ng5glCh0jutuFVx",
+	"jJxStY9fsb5LVcs4Pb42kEzeMi7h97sb8P0nsZviydIvcEz+z5J23Ukso8J5ys7LDXVZSt+cIcd9kYaP",
+	"D/5NPc9An9m1LWPitu7ieHrBnTPhpwGkMcP8dGsgUkhf3WyoS5zf2AYA/vGiD8dTN82XrJUzDUYCm0fu",
+	"vPNxY4yuosAYs7v+hn25c1yK0Qq7/w6GXnmxEj/frEUmrCyx+zHaSoz34MlY83hOtstKvFlcLC74NVeh",
+	"lZUWK/HV4s3ior1eFkGsbG1MFDyv1WNMj38HAAD//1QQKTIFDgAA",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
