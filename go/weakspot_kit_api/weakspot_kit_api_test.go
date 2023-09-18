@@ -38,8 +38,8 @@ func TestWeakspotDescription(t *testing.T) {
 		Tags:                &[]string{"tag1", "tag2"},
 		AssesmentBaseQuery:  "target.type = 'com.steadybit.extension_kubernetes.kubernetes-deployment'",
 		AssesmentQueryAddon: "target.attributes['k8s.deployment.has.weakspot'] = 'true'",
-		ExperimentTemplates: &[]ExperimentTemplate{
-			"...experiment here",
+		Experiments: &[]Experiment{
+			"...experiment here as json export from the UI...",
 		},
 	}
 	markAsUsed(t, v)

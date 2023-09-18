@@ -12,7 +12,7 @@ steadybit.com/extension-auto-weakspot:
     "extensions": [                                                                                                                                                                                                
       {                                                                                                                                                                                                            
         "port": 8088,                                                                                                                                                                                              
-        "types": ["ACTION","DISCOVERY","EVENTS", "WEAKSPOTS"],                                                                                                                                                                           
+        "types": ["ACTION","DISCOVERY","EVENT", "WEAKSPOT"],                                                                                                                                                                           
         "protocol": "http"                                                                                                                                                                                               
       }                                                                                                                                                                                                          
     ]                                                                                                                                                                                                    

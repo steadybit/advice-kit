@@ -1,10 +1,10 @@
 # weakspot API
 
-This document explains the weakspot API, control flow and the contracts behind it. It starts with a high-level overview and then explains every API in detail.
+This document explains the Weakspot API, control flow and the contracts behind it. It starts with a high-level overview and then explains every API in detail.
 
 ## Overview
 
-Weakspots are implemented with the help of weakspotKit and the weakspot API through the implementation of a weakspot provider. weakspot providers are HTTP servers implementing the weakspot API to describe which weakspots are delivered. The following diagram illustrates who is issuing calls and in what phases.
+Weakspots are implemented with the help of WeakspotKit and the Weakspot API through the implementation of a weakspot provider. Weakspot providers are HTTP servers implementing the Weakspot API to describe which weakspots are delivered. The following diagram illustrates who is issuing calls and in what phases.
 
 ![UML sequence diagram showing in what order the APIs are called](weakspot-flow.svg)
 
@@ -18,7 +18,7 @@ The following sections explain the various API endpoints, their responsibilities
 
 ## Index Response
 
-As the name implies, this is the root of a weakspot provider and returns a list of supported weakspots. Or,
+As the name implies, this is the root of a weakspot provider and returns a list of supported Weakspots. Or,
 more specifically, HTTP endpoints that the agent should call to learn more about them.
 
 This endpoint needs to be [registered with Steadybit agents](./weakspot-registration.md).
@@ -66,10 +66,8 @@ A weakspot description is required for each weakspot. The HTTP endpoint serving 
   "technology": "AWS",
   "experiments": [
     {
-      "name": "{{k8s.cluster-name}}/{{k8s.deployment}} faultless redundancy during single pod failure",
-      "hypothesis": "When a single pod fails {{successRate}}% of all requests to {{httpEndpoint}} are successful",
-      "environment": "{{environmentName}}",
-      "team": "{{teamKey}}",
+      "name": "${target.k8s.cluster-name}/${target.k8s.deployment} faultless redundancy during single pod failure",
+      "hypothesis": "When a single pod fails of all requests to an endpoint are successful",
       "lanes": {
         "steps": [
           {
@@ -90,28 +88,28 @@ A weakspot description is required for each weakspot. The HTTP endpoint serving 
                     "key": "k8s.cluster-name",
                     "operator": "EQUALS",
                     "values": [
-                      "{k8s.cluster-name}"
+                      "${target.k8s.cluster-name}"
                     ]
                   },
                   {
                     "key": "k8s.namespace",
                     "operator": "EQUALS",
                     "values": [
-                      "{k8s.namespace}"
+                      "${target.k8s.namespace}"
                     ]
                   },
                   {
                     "key": "k8s.deployment",
                     "operator": "EQUALS",
                     "values": [
-                      "{k8s.deployment}"
+                      "${target.k8s.deployment}"
                     ]
                   },
                   {
                     "key": "k8s.container.name",
                     "operator": "EQUALS",
                     "values": [
-                      "{k8s.container.name}"
+                      "${target.k8s.container.name}"
                     ]
                   }
                 ]
@@ -124,16 +122,10 @@ A weakspot description is required for each weakspot. The HTTP endpoint serving 
       }
     }
   ],
-  "finding": "When availability zone {aws.zones?.[0]} is failing, your service {k8s.pod.name} is not available.",
-  "looksGood": "When availability zone {aws.zones?.[0]} is failing, your service {k8s.pod.name} is still available.",
-  "guidance": "It is recommended to always split its components into different zones so that in case of a failure of one..",
-  "instructions": "It is recommended to always split its components into different zones so that in case of a failure of one..",
-  "resources": [
-    {
-      "name": "AWS Availability Zones",
-      "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
-    }
-  ]
+  "finding": "## Finding \n When the only availability zone is failing, your service ${target.k8s.pod.name} is not available.",
+  "looksGood": "## Great Job \n When one availability zone is failing, your service ${target.k8s.pod.name} is still available.",
+  "guidance": "## Some Guidance \n It is recommended to always split its components into different zones so that in case of a failure of one..",
+  "instructions": "## Instructions \n It is recommended to always split its components into different zones so that in case of a failure of one.."
 }
 ```
 
