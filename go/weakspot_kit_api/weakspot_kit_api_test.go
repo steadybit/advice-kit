@@ -41,6 +41,10 @@ func TestWeakspotDescription(t *testing.T) {
 		Experiments: &[]Experiment{
 			"...experiment here as json export from the UI...",
 		},
+		Finding: Ptr("This is a finding"),
+		Guidance: Ptr("This is a guidance"),
+		Instructions: Ptr("This is a instruction"),
+		LooksGood: Ptr("This is a looks good"),
 	}
 	markAsUsed(t, v)
 }

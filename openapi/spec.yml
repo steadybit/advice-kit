@@ -47,17 +47,30 @@ components:
           type: string
           description: "A Assessment Target Query Addon that is used to identify targets with this weakspot in the target list of the assesmentBaseQuery"
         tags:
-            type: array
-            items:
-                type: string
-            uniqueItems: true
-            description: "A list of tags that describe the weakspot."
+          type: array
+          items:
+              type: string
+          uniqueItems: true
+          description: "A list of tags that describe the weakspot."
         experiments:
           type: array
           items:
             $ref: '#/components/schemas/Experiment'
           uniqueItems: true
           description: "A list of experiments that are available for this weakspot."
+        finding:
+          type: string
+          description: "A description of the finding that is reported when the weakspot is found in mark down format."
+        looksGood:
+          type: string
+          description: "A description of the finding that is reported when the weakspot is not found in mark down format."
+        guidance:
+          type: string
+          description: "A guidance why this weakspot is important in mark down format.."
+        instructions:
+          type: string
+          description: "A description of the instructions how to fix this weakspot in mark down format."
+
       required:
         - id
         - version
