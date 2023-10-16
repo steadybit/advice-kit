@@ -1,12 +1,12 @@
 # Terminology
 
-## WeakspotKit
+## AdviceKit
 
-The combination of the weakspot APIs, contracts, documentation and any other material related to the extension of Steadybit with new weakspots.
+The combination of the advice APIs, contracts, documentation and any other material related to the extension of Steadybit with new advices.
 
-## Weakspot Provider
+## Advice Provider
 
-A weakspot provider is an HTTP server implementing the weakspot API. In doing so, it extends Steadybit with new weakspots.
+A advice provider is an HTTP server implementing the advice API. In doing so, it extends Steadybit with new advices.
 
 ## Steadybit Platform
 

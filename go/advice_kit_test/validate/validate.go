@@ -3,18 +3,18 @@ package validate
 import (
 	"errors"
 	"github.com/go-resty/resty/v2"
-	"github.com/steadybit/weakspot-kit/go/weakspot_kit_test/client"
+	"github.com/steadybit/advice-kit/go/advice_kit_test/client"
 )
 
 func ValidateEndpointReferences(path string, restyClient *resty.Client) error {
-	c := client.NewWeakspotClient(path, restyClient)
+	c := client.NewAdviceClient(path, restyClient)
 	var allErr error
 
-	list, err := c.ListWeakspots()
+	list, err := c.ListAdvices()
 	allErr = errors.Join(allErr, err)
 
-	for _, weakspot := range list.Weakspots {
-		_, err := c.DescribeWeakspot(weakspot)
+	for _, advice := range list.Advices {
+		_, err := c.DescribeAdvice(advice)
 		allErr = errors.Join(allErr, err)
 	}
 

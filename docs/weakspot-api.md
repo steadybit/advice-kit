@@ -1,27 +1,27 @@
-# weakspot API
+# advice API
 
-This document explains the Weakspot API, control flow and the contracts behind it. It starts with a high-level overview and then explains every API in detail.
+This document explains the Advice API, control flow and the contracts behind it. It starts with a high-level overview and then explains every API in detail.
 
 ## Overview
 
-Weakspots are implemented with the help of WeakspotKit and the Weakspot API through the implementation of a weakspot provider. Weakspot providers are HTTP servers implementing the Weakspot API to describe which weakspots are delivered. The following diagram illustrates who is issuing calls and in what phases.
+Advices are implemented with the help of AdviceKit and the Advice API through the implementation of a advice provider. Advice providers are HTTP servers implementing the Advice API to describe which advices are delivered. The following diagram illustrates who is issuing calls and in what phases.
 
-![UML sequence diagram showing in what order the APIs are called](weakspot-flow.svg)
+![UML sequence diagram showing in what order the APIs are called](advice-flow.svg)
 
-As can be seen above, the weakspot provider is called by the Steadybit agent in two phases:
+As can be seen above, the advice provider is called by the Steadybit agent in two phases:
 
-- In the weakspot registration phase, Steadybit learns about the supported weakspots. Once this phase is completed, weakspots will be
+- In the advice registration phase, Steadybit learns about the supported advices. Once this phase is completed, advices will be
   scheduled within the agent.
-- The weakspot will be called by the agent's scheduler in the execution phase.
+- The advice will be called by the agent's scheduler in the execution phase.
 
 The following sections explain the various API endpoints, their responsibilities and structures in more detail.
 
 ## Index Response
 
-As the name implies, this is the root of a weakspot provider and returns a list of supported Weakspots. Or,
+As the name implies, this is the root of a advice provider and returns a list of supported Advices. Or,
 more specifically, HTTP endpoints that the agent should call to learn more about them.
 
-This endpoint needs to be [registered with Steadybit agents](./weakspot-registration.md).
+This endpoint needs to be [registered with Steadybit agents](./advice-registration.md).
 
 ### Example
 
@@ -30,12 +30,12 @@ This endpoint needs to be [registered with Steadybit agents](./weakspot-registra
 
 // Response: 200
 {
-  "weakspots": [
+  "advices": [
     {
-      "path": "/weakspots/com.steadybit.extension_aws.weakspot.aws-single-zone"
+      "path": "/advices/com.steadybit.extension_aws.advice.aws-single-zone"
     },
     {
-      "path": "/weakspots/bad-dogs"
+      "path": "/advices/bad-dogs"
     }
   ]
 }
@@ -43,21 +43,21 @@ This endpoint needs to be [registered with Steadybit agents](./weakspot-registra
 
 ### References
 
-- [Go API](https://github.com/steadybit/weakspot-kit/tree/main/go/weakspot_kit_api): `weakspotList`
-- [OpenAPI Schema](https://github.com/steadybit/weakspot-kit/tree/main/openapi): `weakspotList`
+- [Go API](https://github.com/steadybit/advice-kit/tree/main/go/advice_kit_api): `adviceList`
+- [OpenAPI Schema](https://github.com/steadybit/advice-kit/tree/main/openapi): `adviceList`
 
-## Weakspot Description
+## Advice Description
 
-A weakspot description is required for each weakspot. The HTTP endpoint serving the description is discovered through the index endpoint.
+A advice description is required for each advice. The HTTP endpoint serving the description is discovered through the index endpoint.
 
 ### Example
 
 ```json
-// Request: GET /weakspots/com.steadybit.extension_aws.weakspot.aws-single-zone
+// Request: GET /advices/com.steadybit.extension_aws.advice.aws-single-zone
 
 // Response: 200
 {
-  "id": "com.steadybit.extension_aws.weakspot.aws-single-zone",
+  "id": "com.steadybit.extension_aws.advice.aws-single-zone",
   "version": "1.0.0",
   "label": "AWS Single Zone",
   "icon": "data:image/svg+xml;utf8,<svg ...>",
@@ -131,6 +131,6 @@ A weakspot description is required for each weakspot. The HTTP endpoint serving 
 
 ### References
 
-- [Go API](https://github.com/steadybit/weakspot-kit/tree/main/go/weakspot_kit_api): `weakspotDescription`
-- [OpenAPI Schema](https://github.com/steadybit/weakspot-kit/tree/main/openapi): `weakspotDescription`
+- [Go API](https://github.com/steadybit/advice-kit/tree/main/go/advice_kit_api): `adviceDefinition`
+- [OpenAPI Schema](https://github.com/steadybit/advice-kit/tree/main/openapi): `weakspotDescription`
 

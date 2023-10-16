@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2023 Steadybit GmbH
 
-package weakspot_kit_api
+package advice_kit_api
 
 import (
 	"testing"
@@ -17,9 +17,9 @@ func markAsUsed(t *testing.T, v any) {
 	}
 }
 
-func TestWeakspotList(t *testing.T) {
-	v := WeakspotList{
-		Weakspots: []DescribingEndpointReference{
+func TestAdviceList(t *testing.T) {
+	v := AdviceList{
+		Advices: []DescribingEndpointReference{
 			{
 				Method: "GET",
 				Path:   "/",
@@ -29,28 +29,37 @@ func TestWeakspotList(t *testing.T) {
 	markAsUsed(t, v)
 }
 
-func TestWeakspotDescription(t *testing.T) {
-	v := WeakspotDescription{
-		Id:                  "com.steadybit.extension_example.my_weakspot",
+func TestAdviceDefinition(t *testing.T) {
+	v := AdviceDefinition{
+		Id:                  "com.steadybit.extension_example.my_advice",
 		Version:             "1.0.0",
-		Label:               "My Weakspot",
+		Label:               "My Advice",
 		Icon:                "data:image/svg+xml,%3Csvg%20width%3D%22",
 		Tags:                &[]string{"tag1", "tag2"},
 		AssesmentBaseQuery:  "target.type = 'com.steadybit.extension_kubernetes.kubernetes-deployment'",
-		AssesmentQueryAddon: "target.attributes['k8s.deployment.has.weakspot'] = 'true'",
+		AssesmentQueryAddon: "target.attributes['k8s.deployment.has.advice'] = 'true'",
 		Experiments: &[]Experiment{
 			"...experiment here as json export from the UI...",
 		},
-		Finding: Ptr("This is a finding"),
-		Guidance: Ptr("This is a guidance"),
-		Instructions: Ptr("This is a instruction"),
-		LooksGood: Ptr("This is a looks good"),
+		Description: AdviceDefinitionDescription{
+			ActionNeeded:     AdviceDefinitionDescriptionActionNeeded{
+				Instruction: "",
+				Motivation:  "",
+				Summary:     "",
+			},
+			Implemented:      AdviceDefinitionDescriptionImplemented{
+				Summary: "",
+			},
+			ValidationNeeded: AdviceDefinitionDescriptionValidationNeeded{
+				Summary: "",
+			},
+		},
 	}
 	markAsUsed(t, v)
 }
 
-func TestWeakspotKitError(t *testing.T) {
-	v := WeakspotKitError{
+func TestAdviceKitError(t *testing.T) {
+	v := AdviceKitError{
 		Detail:   Ptr("d"),
 		Instance: Ptr("i"),
 		Title:    "t",

@@ -1,4 +1,4 @@
-package: weakspot_kit_api
+package: advice_kit_api
 generate:
   models: true
   embedded-spec: true

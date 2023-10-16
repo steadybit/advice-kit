@@ -6,14 +6,14 @@ import (
 	"fmt"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/go-resty/resty/v2"
-	"github.com/steadybit/weakspot-kit/go/weakspot_kit_api"
+	"github.com/steadybit/advice-kit/go/advice_kit_api"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
 
-type WeakspotAPI interface {
-	ListWeakspots() (weakspot_kit_api.WeakspotList, error)
-	DescribeWeakspot(ref weakspot_kit_api.DescribingEndpointReference) (weakspot_kit_api.WeakspotDescription, error)
+type AdviceAPI interface {
+	ListAdvices() (advice_kit_api.AdviceList, error)
+	DescribeAdvice(ref advice_kit_api.DescribingEndpointReference) (advice_kit_api.AdviceDefinition, error)
 }
 
 type clientImpl struct {
@@ -22,8 +22,8 @@ type clientImpl struct {
 	spec     *openapi3.T
 }
 
-func NewWeakspotClient(rootPath string, client *resty.Client) WeakspotAPI {
-	spec, _ := weakspot_kit_api.GetSwagger()
+func NewAdviceClient(rootPath string, client *resty.Client) AdviceAPI {
+	spec, _ := advice_kit_api.GetSwagger()
 	return &clientImpl{
 		client:   client,
 		rootPath: rootPath,
@@ -31,19 +31,19 @@ func NewWeakspotClient(rootPath string, client *resty.Client) WeakspotAPI {
 	}
 }
 
-func (c *clientImpl) ListWeakspots() (weakspot_kit_api.WeakspotList, error) {
-	var list weakspot_kit_api.WeakspotList
-	err := c.executeAndValidate(weakspot_kit_api.DescribingEndpointReference{Path: c.rootPath}, &list, "WeakspotList")
+func (c *clientImpl) ListAdvices() (advice_kit_api.AdviceList, error) {
+	var list advice_kit_api.AdviceList
+	err := c.executeAndValidate(advice_kit_api.DescribingEndpointReference{Path: c.rootPath}, &list, "AdviceList")
 	return list, err
 }
 
-func (c *clientImpl) DescribeWeakspot(ref weakspot_kit_api.DescribingEndpointReference) (weakspot_kit_api.WeakspotDescription, error) {
-	var description weakspot_kit_api.WeakspotDescription
-	err := c.executeAndValidate(ref, &description, "WeakspotDescription")
+func (c *clientImpl) DescribeAdvice(ref advice_kit_api.DescribingEndpointReference) (advice_kit_api.AdviceDefinition, error) {
+	var description advice_kit_api.AdviceDefinition
+	err := c.executeAndValidate(ref, &description, "AdviceDefinition")
 	return description, err
 }
 
-func (c *clientImpl) executeAndValidate(ref weakspot_kit_api.DescribingEndpointReference, result interface{}, schemaName string) error {
+func (c *clientImpl) executeAndValidate(ref advice_kit_api.DescribingEndpointReference, result interface{}, schemaName string) error {
 	method, path := getMethodAndPath(ref)
 	res, err := c.client.R().SetResult(result).Execute(method, path)
 	if err != nil {
@@ -81,7 +81,7 @@ func (c *clientImpl) validateResponseBody(name string, body []byte) error {
 	return nil
 }
 
-func getMethodAndPath(ref weakspot_kit_api.DescribingEndpointReference) (string, string) {
+func getMethodAndPath(ref advice_kit_api.DescribingEndpointReference) (string, string) {
 	method := "GET"
 	if len(ref.Method) > 0 {
 		method = cases.Upper(language.English).String(string(ref.Method))

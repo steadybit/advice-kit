@@ -15,11 +15,11 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  go-weakspot-kit-api:
+  go-advice-kit-api:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./go/weakspot_kit_api
+        working-directory: ./go/advice_kit_api
     steps:
     - uses: actions/checkout@v3
       with:
@@ -34,11 +34,11 @@ jobs:
     - run: go get
     - run: go test
 
-  go-weakspot-kit-test:
+  go-advice-kit-test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./go/weakspot_kit_test
+        working-directory: ./go/advice_kit_test
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
