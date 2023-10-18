@@ -61,8 +61,8 @@ A advice description is required for each advice. The HTTP endpoint serving the 
   "version": "1.0.0",
   "label": "AWS Single Zone",
   "icon": "data:image/svg+xml;utf8,<svg ...>",
-  "assesmentBaseQuery": "target.type = com.steadybit.extension_kubernetes.kubernetes-deployment",
-  "assesmentQueryAddon": "aws.zone > 0 AND aws.zone < 2",
+  "assessmentBaseQuery": "target.type = com.steadybit.extension_kubernetes.kubernetes-deployment",
+  "assessmentQueryAddon": "aws.zone > 0 AND aws.zone < 2",
   "technology": "AWS",
   "experiments": [
     {

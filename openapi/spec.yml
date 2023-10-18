@@ -40,12 +40,12 @@ components:
         icon:
           type: string
           description: "A svg of an icon that represents the advice."
-        assesmentBaseQuery:
+        assessmentBaseQuery:
           type: string
           description: "A Assessment Target Base Query that is used identifies targets that could have this advice."
-        assesmentQueryAddon:
+        assessmentQueryAddon:
           type: string
-          description: "A Assessment Target Query Addon that is used to identify targets with this advice in the target list of the assesmentBaseQuery"
+          description: "A Assessment Target Query Addon that is used to identify targets with this advice in the target list of the assessmentBaseQuery"
         tags:
           type: array
           items:
@@ -66,8 +66,8 @@ components:
         - version
         - label
         - icon
-        - assesmentBaseQuery
-        - assesmentQueryAddon
+        - assessmentBaseQuery
+        - assessmentQueryAddon
         - description
 
     Experiment:
