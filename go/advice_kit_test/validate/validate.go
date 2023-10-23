@@ -10,10 +10,10 @@ func ValidateEndpointReferences(path string, restyClient *resty.Client) error {
 	c := client.NewAdviceClient(path, restyClient)
 	var allErr error
 
-	list, err := c.ListAdvices()
+	list, err := c.ListAdvice()
 	allErr = errors.Join(allErr, err)
 
-	for _, advice := range list.Advices {
+	for _, advice := range list.Advice {
 		_, err := c.DescribeAdvice(advice)
 		allErr = errors.Join(allErr, err)
 	}

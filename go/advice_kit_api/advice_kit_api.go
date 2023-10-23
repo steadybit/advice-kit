@@ -103,9 +103,9 @@ type AdviceKitError struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// AdviceList Lists all advices that the platform/agent could consume.
+// AdviceList Lists all advice that the platform/agent could consume.
 type AdviceList struct {
-	Advices []DescribingEndpointReference `json:"advices"`
+	Advice []DescribingEndpointReference `json:"advice"`
 }
 
 // DescribingEndpointReference HTTP endpoint which the Steadybit platform/agent could communicate with.

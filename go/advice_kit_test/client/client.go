@@ -12,7 +12,7 @@ import (
 )
 
 type AdviceAPI interface {
-	ListAdvices() (advice_kit_api.AdviceList, error)
+	ListAdvice() (advice_kit_api.AdviceList, error)
 	DescribeAdvice(ref advice_kit_api.DescribingEndpointReference) (advice_kit_api.AdviceDefinition, error)
 }
 
@@ -31,7 +31,7 @@ func NewAdviceClient(rootPath string, client *resty.Client) AdviceAPI {
 	}
 }
 
-func (c *clientImpl) ListAdvices() (advice_kit_api.AdviceList, error) {
+func (c *clientImpl) ListAdvice() (advice_kit_api.AdviceList, error) {
 	var list advice_kit_api.AdviceList
 	err := c.executeAndValidate(advice_kit_api.DescribingEndpointReference{Path: c.rootPath}, &list, "AdviceList")
 	return list, err

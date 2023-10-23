@@ -20,10 +20,10 @@ import (
 )
 
 AdviceList := advice_kit_api.AdviceList{
-    Advices: []advice_kit_api.DescribingEndpointReference{
+    Advice: []advice_kit_api.DescribingEndpointReference{
         {
             "GET",
-            "/advices/my-fancy-advice",
+            "/advice/my-fancy-advice",
         },
     },
 }

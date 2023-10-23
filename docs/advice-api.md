@@ -4,13 +4,13 @@ This document explains the Advice API, control flow and the contracts behind it.
 
 ## Overview
 
-Advices are implemented with the help of AdviceKit and the Advice API through the implementation of a advice provider. Advice providers are HTTP servers implementing the Advice API to describe which advices are delivered. The following diagram illustrates who is issuing calls and in what phases.
+Advice are implemented with the help of AdviceKit and the Advice API through the implementation of a advice provider. Advice providers are HTTP servers implementing the Advice API to describe which advice are delivered. The following diagram illustrates who is issuing calls and in what phases.
 
 ![UML sequence diagram showing in what order the APIs are called](advice-flow.svg)
 
 As can be seen above, the advice provider is called by the Steadybit agent in two phases:
 
-- In the advice registration phase, Steadybit learns about the supported advices. Once this phase is completed, advices will be
+- In the advice registration phase, Steadybit learns about the supported advice. Once this phase is completed, advice will be
   scheduled within the agent.
 - The advice will be called by the agent's scheduler in the execution phase.
 
@@ -18,7 +18,7 @@ The following sections explain the various API endpoints, their responsibilities
 
 ## Index Response
 
-As the name implies, this is the root of a advice provider and returns a list of supported Advices. Or,
+As the name implies, this is the root of a advice provider and returns a list of supported Advice. Or,
 more specifically, HTTP endpoints that the agent should call to learn more about them.
 
 This endpoint needs to be [registered with Steadybit agents](./advice-registration.md).
@@ -30,12 +30,12 @@ This endpoint needs to be [registered with Steadybit agents](./advice-registrati
 
 // Response: 200
 {
-  "advices": [
+  "advice": [
     {
-      "path": "/advices/com.steadybit.extension_aws.advice.aws-single-zone"
+      "path": "/advice/com.steadybit.extension_aws.advice.aws-single-zone"
     },
     {
-      "path": "/advices/bad-dogs"
+      "path": "/advice/bad-dogs"
     }
   ]
 }
@@ -53,7 +53,7 @@ A advice description is required for each advice. The HTTP endpoint serving the 
 ### Example
 
 ```json
-// Request: GET /advices/com.steadybit.extension_aws.advice.aws-single-zone
+// Request: GET /advice/com.steadybit.extension_aws.advice.aws-single-zone
 
 // Response: 200
 {

@@ -30,11 +30,11 @@ This can be done via `agent.env` files or directly via the command line.
 
 The environment variables are:
 
-- `STEADYBIT_AGENT_ADVICES_EXTENSIONS_0_URL`: Required fully-qualified URL defining which HTTP URL should be requested to get
-  the [index response](./advice-api.md#index-response), e.g., `http://advices.steadybit.svc.cluster.local:8080/`.
-- `STEADYBIT_AGENT_ADVICES_EXTENSIONS_0_METHOD`: Optional HTTP method to use. Defaults to GET.
-- `STEADYBIT_AGENT_ADVICES_EXTENSIONS_0_BASIC_USERNAME`: Optional basic authentication username to use within HTTP requests.
-- `STEADYBIT_AGENT_ADVICES_EXTENSIONS_0_BASIC_PASSWORD`: Optional basic authentication password to use within HTTP requests.
+- `STEADYBIT_AGENT_ADVICE_EXTENSIONS_0_URL`: Required fully-qualified URL defining which HTTP URL should be requested to get
+  the [index response](./advice-api.md#index-response), e.g., `http://advice.steadybit.svc.cluster.local:8080/`.
+- `STEADYBIT_AGENT_ADVICE_EXTENSIONS_0_METHOD`: Optional HTTP method to use. Defaults to GET.
+- `STEADYBIT_AGENT_ADVICE_EXTENSIONS_0_BASIC_USERNAME`: Optional basic authentication username to use within HTTP requests.
+- `STEADYBIT_AGENT_ADVICE_EXTENSIONS_0_BASIC_PASSWORD`: Optional basic authentication password to use within HTTP requests.
 
 These environment variables can occur multiple times with different indices to register multiple advice providers,
-e.g., `STEADYBIT_AGENT_ADVICES_EXTENSIONS_0_URL` and `STEADYBIT_AGENT_ADVICES_EXTENSIONS_1_URL`.
+e.g., `STEADYBIT_AGENT_ADVICE_EXTENSIONS_0_URL` and `STEADYBIT_AGENT_ADVICE_EXTENSIONS_1_URL`.

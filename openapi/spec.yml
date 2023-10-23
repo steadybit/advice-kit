@@ -13,16 +13,16 @@ components:
   schemas:
     AdviceList:
       title: Advice List
-      description: Lists all advices that the platform/agent could consume.
+      description: Lists all advice that the platform/agent could consume.
       type: object
       properties:
-        advices:
+        advice:
           type: array
           items:
             $ref: '#/components/schemas/DescribingEndpointReference'
           uniqueItems: true
       required:
-        - advices
+        - advice
     AdviceDefinition:
       title: Advice Description
       description: Provides details about a advice

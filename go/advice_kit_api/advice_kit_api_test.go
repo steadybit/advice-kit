@@ -19,7 +19,7 @@ func markAsUsed(t *testing.T, v any) {
 
 func TestAdviceList(t *testing.T) {
 	v := AdviceList{
-		Advices: []DescribingEndpointReference{
+		Advice: []DescribingEndpointReference{
 			{
 				Method: "GET",
 				Path:   "/",
