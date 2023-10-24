@@ -36,8 +36,8 @@ func TestAdviceDefinition(t *testing.T) {
 		Label:               "My Advice",
 		Icon:                "data:image/svg+xml,%3Csvg%20width%3D%22",
 		Tags:                &[]string{"tag1", "tag2"},
-		AssessmentBaseQuery:  "target.type = 'com.steadybit.extension_kubernetes.kubernetes-deployment'",
-		AssessmentQueryAddon: "target.attributes['k8s.deployment.has.advice'] = 'true'",
+		AssessmentQueryApplicable:  "target.type = 'com.steadybit.extension_kubernetes.kubernetes-deployment'",
+		AssessmentQueryActionNeeded: "target.attributes['k8s.deployment.has.advice'] = 'true'",
 		Experiments: &[]Experiment{
 			"...experiment here as json export from the UI...",
 		},
