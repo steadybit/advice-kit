@@ -55,9 +55,9 @@ components:
         experiments:
           type: array
           items:
-            $ref: '#/components/schemas/Experiment'
+            $ref: '#/components/schemas/ExperimentTemplate'
           uniqueItems: true
-          description: "A list of experiments that are available for this advice."
+          description: "A list of experiment templates that are available for this advice."
         description:
           $ref: '#/components/schemas/AdviceDefinitionDescription'
 
@@ -70,9 +70,27 @@ components:
         - assessmentQueryActionNeeded
         - description
 
+
+    ExperimentTemplate:
+      title: Advice Experiment Template
+      description: Provides a template about a advice experiment
+      type: object
+      properties:
+        id:
+          type: string
+          description: "A technical ID that is used to uniquely identify this experiment. You will typically want to use something like `org.example.extension.my-fancy-advice.1`."
+        name:
+          type: string
+          description: "A human-readable name for the experiment template."
+        experiment:
+          $ref: '#/components/schemas/Experiment'
+      required:
+        - id
+        - name
+        - experiment
     Experiment:
       title: Advice Experiment
-      description: Provides a template about a advice experiment
+      description: Provides a experiment json exported from the ui
       ref: any
     AdviceDefinitionDescription:
       title: Advice Description

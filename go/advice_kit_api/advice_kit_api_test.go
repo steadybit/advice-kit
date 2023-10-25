@@ -38,8 +38,13 @@ func TestAdviceDefinition(t *testing.T) {
 		Tags:                &[]string{"tag1", "tag2"},
 		AssessmentQueryApplicable:  "target.type = 'com.steadybit.extension_kubernetes.kubernetes-deployment'",
 		AssessmentQueryActionNeeded: "target.attributes['k8s.deployment.has.advice'] = 'true'",
-		Experiments: &[]Experiment{
-			"...experiment here as json export from the UI...",
+		Experiments: &[]ExperimentTemplate{
+			{
+				Id:"com.steadybit.extension_example.my_advice.experiment1",
+				Name:"Experiment 1",
+				Experiment: "...experiment here as json export from the UI...",
+			},
+
 		},
 		Description: AdviceDefinitionDescription{
 			ActionNeeded:     AdviceDefinitionDescriptionActionNeeded{
