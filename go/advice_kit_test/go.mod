@@ -6,12 +6,10 @@ require (
 	github.com/getkin/kin-openapi v0.120.0
 	github.com/go-resty/resty/v2 v2.10.0
 	github.com/jarcoal/httpmock v1.3.1
-	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-alpha.1
+	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-alpha.2
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/text v0.13.0
 )
-
-replace github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-alpha.1 => ../advice_kit_api
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect

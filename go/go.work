@@ -1,6 +1,0 @@
-go 1.20
-
-use (
-	advice_kit_test
-	advice_kit_api
-)
