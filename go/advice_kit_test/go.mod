@@ -6,12 +6,12 @@ require (
 	github.com/getkin/kin-openapi v0.120.0
 	github.com/go-resty/resty/v2 v2.10.0
 	github.com/jarcoal/httpmock v1.3.1
-	github.com/steadybit/advice-kit/go/advice_kit_api v0.1.0
+	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-alpha.1
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/text v0.13.0
 )
 
-replace github.com/steadybit/advice-kit/go/advice_kit_api v0.1.0 => ../advice_kit_api
+replace github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-alpha.1 => ../advice_kit_api
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
@@ -40,7 +40,7 @@ require (
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gomarkdown/markdown v0.0.0-20230922112808-5421fefb8386 // indirect
-	github.com/google/uuid v1.3.1 // indirect
+	github.com/google/uuid v1.4.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/invopop/yaml v0.2.0 // indirect
 	github.com/iris-contrib/schema v0.0.6 // indirect
