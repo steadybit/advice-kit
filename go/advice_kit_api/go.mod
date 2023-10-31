@@ -3,7 +3,7 @@ module github.com/steadybit/advice-kit/go/advice_kit_api
 go 1.20
 
 require (
-	github.com/deepmap/oapi-codegen v1.15.0
+	github.com/deepmap/oapi-codegen v1.16.2
 	github.com/getkin/kin-openapi v0.120.0
 )
 
