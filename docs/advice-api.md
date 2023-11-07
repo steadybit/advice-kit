@@ -142,6 +142,17 @@ A advice description is required for each advice. The HTTP endpoint serving the 
 }
 ```
 
+### Advice Markdown Text and its substitutions
+
+The `description` field of the advice description is a map of markdown texts. The markdown texts can contain placeholders which will be substituted by the agent with the values of the target. The placeholders are enclosed in `${target.KEY}`. 
+The following placeholders are supported:
+* ${target.key} --> replaces with the value of the attribute with the given key as `*value*`
+* ${target.key:normal} --> replaces with the value of the attribute with the given key as `value`
+* ${target.key[0]} --> replaces with the value of the first attribute with the given key as `*value*`
+* ${target.key[1]} --> replaces with the value of the second attribute with the given key as `*value2*`
+* ${target.key[]} --> replaces with the value of the second attribute with the given key as `*value, value2*`
+* ${target.key[1]:normal} --> replaces with the value of the second attribute with the given key as `value2`
+
 ### References
 
 - [Go API](https://github.com/steadybit/advice-kit/tree/main/go/advice_kit_api): `adviceDefinition`
