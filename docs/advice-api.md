@@ -152,6 +152,8 @@ The following placeholders are supported:
 * ${target.key[1]} --> replaces with the value of the second attribute with the given key as `*value2*`
 * ${target.key[]} --> replaces with the value of the second attribute with the given key as `*value, value2*`
 * ${target.key[1]:normal} --> replaces with the value of the second attribute with the given key as `value2`
+* ${target.key:length} --> replaces with the value count of the attribute as e.g. `*42*`
+* ${target.key:length:normal} --> replaces with the value count of the attribute as e.g. `42`
 
 ### References
 
