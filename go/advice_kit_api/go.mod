@@ -1,6 +1,6 @@
 module github.com/steadybit/advice-kit/go/advice_kit_api
 
-go 1.20
+go 1.21
 
 require (
 	github.com/deepmap/oapi-codegen v1.16.2
