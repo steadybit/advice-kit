@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.1-beta.5
+## v0.0.1-beta.6
 
  - add text only validation and there refactoring of the status lifecycle
 
