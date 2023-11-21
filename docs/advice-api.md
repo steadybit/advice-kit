@@ -62,81 +62,97 @@ A advice description is required for each advice. The HTTP endpoint serving the 
   "label": "AWS Single Zone",
   "icon": "data:image/svg+xml;utf8,<svg ...>",
   "assessmentQueryApplicable": "target.type = com.steadybit.extension_kubernetes.kubernetes-deployment",
-  "assessmentQueryActionNeeded": "aws.zone > 0 AND aws.zone < 2",
-  "technology": "AWS",
-  "experiments": [
-    {
-      "id": "com.steadybit.extension_aws.advice.aws-single-zone.1",
-      "name": "AWS Single Zone Template",
-      "experiment": {
-        "name": "${target.k8s.cluster-name}/${target.k8s.deployment} faultless redundancy during single pod failure",
-        "hypothesis": "When a single pod fails of all requests to an endpoint are successful",
-        "lanes": {
-          "steps": [
-            {
-              "type": "action",
-              "ignoreFailure": false,
-              "parameters": {
-                "duration": "60s",
-                "cpuLoad": 100,
-                "workers": 0
-              },
-              "actionType": "com.steadybit.extension_container.stress_cpu",
-              "radius": {
-                "targetType": "com.steadybit.extension_container.container",
-                "predicate": {
-                  "operator": "AND",
-                  "predicates": [
-                    {
-                      "key": "k8s.cluster-name",
-                      "operator": "EQUALS",
-                      "values": [
-                        "${target.k8s.cluster-name}"
-                      ]
-                    },
-                    {
-                      "key": "k8s.namespace",
-                      "operator": "EQUALS",
-                      "values": [
-                        "${target.k8s.namespace}"
-                      ]
-                    },
-                    {
-                      "key": "k8s.deployment",
-                      "operator": "EQUALS",
-                      "values": [
-                        "${target.k8s.deployment}"
-                      ]
-                    },
-                    {
-                      "key": "k8s.container.name",
-                      "operator": "EQUALS",
-                      "values": [
-                        "${target.k8s.container.name}"
-                      ]
-                    }
-                  ]
-                },
-                "query": null,
-                "percentage": 50
-              }
-            }
-          ]
-        }
-      }
-    }
+  "tags": [
+    "AWS"
   ],
-  "description": {
+  "status": {
     "actionNeeded": {
-      "summary": "When availability zone ${target.aws.zone} is failing, your service ${target.k8s.pod.name} is not available.",
-      "motivation": "It is recommended to always split its components into different zones so that in case of a failure of one.",
-      "instruction": "Specify the upper limit to be used by defining the   limits   property in your kubernetes manifest: ```...```"
+      "assessmentQuery": "aws.zone > 0 AND aws.zone < 2",
+      "description": {
+        "summary": "When availability zone ${target.aws.zone} is failing, your service ${target.k8s.pod.name} is not available.",
+        "motivation": "It is recommended to always split its components into different zones so that in case of a failure of one.",
+        "instruction": "Specify the upper limit to be used by defining the   limits   property in your kubernetes manifest: ```...```"
+      }
     },
     "validationNeeded": {
-      "summary": "You already took action and configured it. Validate your configuration via the experiment."
-    }
+      "description": {
+        "summary": "You already took action and configured it. Validate your configuration via the experiment."
+      },
+      "validation": [
+        {
+          "id": "com.steadybit.extension_aws.advice.aws-single-zone.1",
+          "name": "AWS Single Zone Template",
+          "type": "experiment",
+          "description": "...",
+          "experiment": {
+            "name": "${target.k8s.cluster-name}/${target.k8s.deployment} faultless redundancy during single pod failure",
+            "hypothesis": "When a single pod fails of all requests to an endpoint are successful",
+            "lanes": {
+              "steps": [
+                {
+                  "type": "action",
+                  "ignoreFailure": false,
+                  "parameters": {
+                    "duration": "60s",
+                    "cpuLoad": 100,
+                    "workers": 0
+                  },
+                  "actionType": "com.steadybit.extension_container.stress_cpu",
+                  "radius": {
+                    "targetType": "com.steadybit.extension_container.container",
+                    "predicate": {
+                      "operator": "AND",
+                      "predicates": [
+                        {
+                          "key": "k8s.cluster-name",
+                          "operator": "EQUALS",
+                          "values": [
+                            "${target.k8s.cluster-name}"
+                          ]
+                        },
+                        {
+                          "key": "k8s.namespace",
+                          "operator": "EQUALS",
+                          "values": [
+                            "${target.k8s.namespace}"
+                          ]
+                        },
+                        {
+                          "key": "k8s.deployment",
+                          "operator": "EQUALS",
+                          "values": [
+                            "${target.k8s.deployment}"
+                          ]
+                        },
+                        {
+                          "key": "k8s.container.name",
+                          "operator": "EQUALS",
+                          "values": [
+                            "${target.k8s.container.name}"
+                          ]
+                        }
+                      ]
+                    },
+                    "query": null,
+                    "percentage": 50
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "com.steadybit.extension_aws.advice.aws-single-zone.2",
+          "name": "Check me",
+          "description": "Really check me",
+          "type": "text"
+        }
+      ]
+    },
     "implemented": {
-      "summary": "When availability zone ${target.aws.zones?.[0]} is failing, your service ${target.k8s.pod.name} is still available."
+      "description": {
+        "summary": "When availability zone ${target.aws.zones?.[0]} is failing, your service ${target.k8s.pod.name} is still available."
+      }
     }
   }
 }

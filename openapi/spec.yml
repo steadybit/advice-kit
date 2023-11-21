@@ -43,23 +43,14 @@ components:
         assessmentQueryApplicable:
           type: string
           description: "A Assessment Target Base Query that is used identifies targets that could have this advice."
-        assessmentQueryActionNeeded:
-          type: string
-          description: "A Assessment Target Query Addon that is used to identify targets with this advice in the target list of the assessmentQueryApplicable"
         tags:
           type: array
           items:
               type: string
           uniqueItems: true
           description: "A list of tags that describe the advice."
-        experiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExperimentTemplate'
-          uniqueItems: true
-          description: "A list of experiment templates that are available for this advice."
-        description:
-          $ref: '#/components/schemas/AdviceDefinitionDescription'
+        status:
+          $ref: '#/components/schemas/AdviceDefinitionStatus'
 
       required:
         - id
@@ -71,68 +62,104 @@ components:
         - description
 
 
-    ExperimentTemplate:
-      title: Advice Experiment Template
-      description: Provides a template about a advice experiment
+    Validation:
+      title: Advice Validation
+      description: Provides a either a template about a advice experiment or a textual validation like a checklist item
       type: object
       properties:
         id:
           type: string
-          description: "A technical ID that is used to uniquely identify this experiment. You will typically want to use something like `org.example.extension.my-fancy-advice.1`."
+          description: "A technical ID that is used to uniquely identify this validation. You will typically want to use something like `org.example.extension.my-fancy-advice-validation.1`."
         name:
           type: string
-          description: "A human-readable name for the experiment template."
+          description: "A human-readable name for the validation."
         description:
           type: string
-          description: "A human-readable description for the experiment template."
+          description: "A human-readable description for the validation or for the experiment template."
+        type:
+          type: string
+          description: "The type of the validation. Either `experiment` or `text`."
         experiment:
           $ref: '#/components/schemas/Experiment'
       required:
         - id
         - name
-        - experiment
+        - description
+        - type
+
     Experiment:
       title: Advice Experiment
       description: Provides a experiment json exported from the ui
       ref: any
-    AdviceDefinitionDescription:
+
+    AdviceDefinitionStatus:
       title: Advice Description
       description: Provides details about a advice
       type: object
       properties:
         actionNeeded:
-          $ref: '#/components/schemas/AdviceDefinitionDescriptionActionNeeded'
+          $ref: '#/components/schemas/AdviceDefinitionStatusActionNeeded'
         validationNeeded:
-          $ref: '#/components/schemas/AdviceDefinitionDescriptionValidationNeeded'
+          $ref: '#/components/schemas/AdviceDefinitionStatusValidationNeeded'
         implemented:
-          $ref: '#/components/schemas/AdviceDefinitionDescriptionImplemented'
+          $ref: '#/components/schemas/AdviceDefinitionStatusImplemented'
       required:
         - actionNeeded
         - validationNeeded
         - implemented
 
-    AdviceDefinitionDescriptionActionNeeded:
+    AdviceDefinitionStatusActionNeeded:
       title: Action Needed
-      description: Provides details about a advice actions needed
+      description: Provides details about a advice lifecycle status actions needed
       type: object
       properties:
-        summary:
+        assessmentQuery:
           type: string
-          description: "A human-readable summary of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
-        motivation:
-          type: string
-          description: "A human-readable motivation of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
-        instruction:
-          type: string
-          description: "A human-readable instructions of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
+          description: "A Assessment Target Query Addon that is used to identify targets with this advice in the target list of the assessmentQueryApplicable"
+        description:
+          $ref: '#/components/schemas/AdviceDefinitionStatusActionNeededDescription'
       required:
-        - summary
-        - motivation
-        - instruction
+        - assessmentQuery
+        - description
 
-    AdviceDefinitionDescriptionValidationNeeded:
-      title: Action Needed
-      description: Provides details about a validation actions needed
+    AdviceDefinitionStatusActionNeededDescription:
+        title: Action Needed Description
+        description: Provides details description about a advice lifecycle status actions needed
+        type: object
+        properties:
+          summary:
+            type: string
+            description: "A human-readable summary of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
+          motivation:
+            type: string
+            description: "A human-readable motivation of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
+          instruction:
+            type: string
+            description: "A human-readable instructions of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
+        required:
+            - summary
+            - motivation
+            - instruction
+
+    AdviceDefinitionStatusValidationNeeded:
+      title: Validation Needed
+      description: Provides details about a advice lifecycle status validation needed
+      type: object
+      properties:
+        description:
+          $ref: '#/components/schemas/AdviceDefinitionStatusValidationNeededDescription'
+        validation:
+          type: array
+          items:
+            $ref: '#/components/schemas/Validation'
+          uniqueItems: true
+          description: "A list of validations that are available for this advice."
+      required:
+        - description
+
+    AdviceDefinitionStatusValidationNeededDescription:
+      title: Validation Needed Description
+      description: Provides details description about a advice lifecycle status validation needed
       type: object
       properties:
         summary:
@@ -141,9 +168,20 @@ components:
       required:
         - summary
 
-    AdviceDefinitionDescriptionImplemented:
-      title: Action Needed
-      description: Provides details about a advice implemented
+    AdviceDefinitionStatusImplemented:
+      title: Status Implemented
+      description: Provides details about a advice lifecycle status implemented
+      type: object
+      properties:
+        description:
+          $ref: '#/components/schemas/AdviceDefinitionStatusImplementedDescription'
+      required:
+        - description
+
+
+    AdviceDefinitionStatusImplementedDescription:
+      title: Status Implemented Description
+      description: Provides details description about a advice lifecycle status implemented
       type: object
       properties:
         summary:

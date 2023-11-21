@@ -24,17 +24,8 @@ const (
 
 // AdviceDefinition Provides details about a advice
 type AdviceDefinition struct {
-	// AssessmentQueryActionNeeded A Assessment Target Query Addon that is used to identify targets with this advice in the target list of the assessmentQueryApplicable
-	AssessmentQueryActionNeeded string `json:"assessmentQueryActionNeeded"`
-
 	// AssessmentQueryApplicable A Assessment Target Base Query that is used identifies targets that could have this advice.
 	AssessmentQueryApplicable string `json:"assessmentQueryApplicable"`
-
-	// Description Provides details about a advice
-	Description AdviceDefinitionDescription `json:"description"`
-
-	// Experiments A list of experiment templates that are available for this advice.
-	Experiments *[]ExperimentTemplate `json:"experiments,omitempty"`
 
 	// Icon A svg of an icon that represents the advice.
 	Icon string `json:"icon"`
@@ -45,6 +36,9 @@ type AdviceDefinition struct {
 	// Label A human-readable label for the advice.
 	Label string `json:"label"`
 
+	// Status Provides details about a advice
+	Status *AdviceDefinitionStatus `json:"status,omitempty"`
+
 	// Tags A list of tags that describe the advice.
 	Tags *[]string `json:"tags,omitempty"`
 
@@ -52,20 +46,29 @@ type AdviceDefinition struct {
 	Version string `json:"version"`
 }
 
-// AdviceDefinitionDescription Provides details about a advice
-type AdviceDefinitionDescription struct {
-	// ActionNeeded Provides details about a advice actions needed
-	ActionNeeded AdviceDefinitionDescriptionActionNeeded `json:"actionNeeded"`
+// AdviceDefinitionStatus Provides details about a advice
+type AdviceDefinitionStatus struct {
+	// ActionNeeded Provides details about a advice lifecycle status actions needed
+	ActionNeeded AdviceDefinitionStatusActionNeeded `json:"actionNeeded"`
 
-	// Implemented Provides details about a advice implemented
-	Implemented AdviceDefinitionDescriptionImplemented `json:"implemented"`
+	// Implemented Provides details about a advice lifecycle status implemented
+	Implemented AdviceDefinitionStatusImplemented `json:"implemented"`
 
-	// ValidationNeeded Provides details about a validation actions needed
-	ValidationNeeded AdviceDefinitionDescriptionValidationNeeded `json:"validationNeeded"`
+	// ValidationNeeded Provides details about a advice lifecycle status validation needed
+	ValidationNeeded AdviceDefinitionStatusValidationNeeded `json:"validationNeeded"`
 }
 
-// AdviceDefinitionDescriptionActionNeeded Provides details about a advice actions needed
-type AdviceDefinitionDescriptionActionNeeded struct {
+// AdviceDefinitionStatusActionNeeded Provides details about a advice lifecycle status actions needed
+type AdviceDefinitionStatusActionNeeded struct {
+	// AssessmentQuery A Assessment Target Query Addon that is used to identify targets with this advice in the target list of the assessmentQueryApplicable
+	AssessmentQuery string `json:"assessmentQuery"`
+
+	// Description Provides details description about a advice lifecycle status actions needed
+	Description AdviceDefinitionStatusActionNeededDescription `json:"description"`
+}
+
+// AdviceDefinitionStatusActionNeededDescription Provides details description about a advice lifecycle status actions needed
+type AdviceDefinitionStatusActionNeededDescription struct {
 	// Instruction A human-readable instructions of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})
 	Instruction string `json:"instruction"`
 
@@ -76,14 +79,29 @@ type AdviceDefinitionDescriptionActionNeeded struct {
 	Summary string `json:"summary"`
 }
 
-// AdviceDefinitionDescriptionImplemented Provides details about a advice implemented
-type AdviceDefinitionDescriptionImplemented struct {
+// AdviceDefinitionStatusImplemented Provides details about a advice lifecycle status implemented
+type AdviceDefinitionStatusImplemented struct {
+	// Description Provides details description about a advice lifecycle status implemented
+	Description AdviceDefinitionStatusImplementedDescription `json:"description"`
+}
+
+// AdviceDefinitionStatusImplementedDescription Provides details description about a advice lifecycle status implemented
+type AdviceDefinitionStatusImplementedDescription struct {
 	// Summary A human-readable summary of the implemented in mark down format. (you can use placeholder like ${target.k8s.pod.name})
 	Summary string `json:"summary"`
 }
 
-// AdviceDefinitionDescriptionValidationNeeded Provides details about a validation actions needed
-type AdviceDefinitionDescriptionValidationNeeded struct {
+// AdviceDefinitionStatusValidationNeeded Provides details about a advice lifecycle status validation needed
+type AdviceDefinitionStatusValidationNeeded struct {
+	// Description Provides details description about a advice lifecycle status validation needed
+	Description AdviceDefinitionStatusValidationNeededDescription `json:"description"`
+
+	// Validation A list of validations that are available for this advice.
+	Validation *[]Validation `json:"validation,omitempty"`
+}
+
+// AdviceDefinitionStatusValidationNeededDescription Provides details description about a advice lifecycle status validation needed
+type AdviceDefinitionStatusValidationNeededDescription struct {
 	// Summary A human-readable summary of the validation needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})
 	Summary string `json:"summary"`
 }
@@ -123,19 +141,22 @@ type DescribingEndpointReferenceMethod string
 // Experiment Provides a experiment json exported from the ui
 type Experiment = interface{}
 
-// ExperimentTemplate Provides a template about a advice experiment
-type ExperimentTemplate struct {
-	// Description A human-readable description for the experiment template.
-	Description *string `json:"description,omitempty"`
+// Validation Provides a either a template about a advice experiment or a textual validation like a checklist item
+type Validation struct {
+	// Description A human-readable description for the validation or for the experiment template.
+	Description string `json:"description"`
 
 	// Experiment Provides a experiment json exported from the ui
-	Experiment Experiment `json:"experiment"`
+	Experiment *Experiment `json:"experiment,omitempty"`
 
-	// Id A technical ID that is used to uniquely identify this experiment. You will typically want to use something like `org.example.extension.my-fancy-advice.1`.
+	// Id A technical ID that is used to uniquely identify this validation. You will typically want to use something like `org.example.extension.my-fancy-advice-validation.1`.
 	Id string `json:"id"`
 
-	// Name A human-readable name for the experiment template.
+	// Name A human-readable name for the validation.
 	Name string `json:"name"`
+
+	// Type The type of the validation. Either `experiment` or `text`.
+	Type string `json:"type"`
 }
 
 // AdviceDefinitionResponse defines model for AdviceDefinitionResponse.
@@ -275,31 +296,33 @@ func (t *AdviceListResponse) UnmarshalJSON(b []byte) error {
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"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",
-	"AP//knjaWTYYAAA=",
+	"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",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
