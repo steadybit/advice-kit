@@ -77,7 +77,10 @@ components:
           description: "A human-readable description for the validation or for the experiment template."
         type:
           type: string
-          description: "The type of the validation. Either `experiment` or `text`."
+          description: "The type of the validation. Either `EXPERIMENT` or `TEXT`."
+          enum:
+            - EXPERIMENT
+            - TEXT
         experiment:
           $ref: '#/components/schemas/Experiment'
       required:
