@@ -58,7 +58,6 @@ components:
         - label
         - icon
         - assessmentQueryApplicable
-        - assessmentQueryActionNeeded
         - description
 
 
