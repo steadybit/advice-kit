@@ -6,12 +6,12 @@ require (
 	github.com/getkin/kin-openapi v0.120.0
 	github.com/go-resty/resty/v2 v2.10.0
 	github.com/jarcoal/httpmock v1.3.1
-	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.4
+	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.5
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/text v0.14.0
 )
 
-replace github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.4 => ../advice_kit_api
+replace github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.5 => ../advice_kit_api
 
 require (
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
