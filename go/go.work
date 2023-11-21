@@ -1,0 +1,6 @@
+go 1.21
+
+use (
+	advice_kit_test
+	advice_kit_api
+)

@@ -23,6 +23,7 @@ components:
           uniqueItems: true
       required:
         - advice
+
     AdviceDefinition:
       title: Advice Description
       description: Provides details about a advice
@@ -51,14 +52,13 @@ components:
           description: "A list of tags that describe the advice."
         status:
           $ref: '#/components/schemas/AdviceDefinitionStatus'
-
       required:
         - id
         - version
         - label
         - icon
         - assessmentQueryApplicable
-        - description
+        - status
 
 
     Validation:
