@@ -37,7 +37,7 @@ func TestAdviceDefinition(t *testing.T) {
 		Icon:                      "data:image/svg+xml,%3Csvg%20width%3D%22",
 		Tags:                      &[]string{"tag1", "tag2"},
 		AssessmentQueryApplicable: "target.type = 'com.steadybit.extension_kubernetes.kubernetes-deployment'",
-		Status: &AdviceDefinitionStatus{
+		Status: AdviceDefinitionStatus{
 			ActionNeeded: AdviceDefinitionStatusActionNeeded{
 				AssessmentQuery: "target.attributes['k8s.deployment.has.advice'] = 'true'",
 				Description: AdviceDefinitionStatusActionNeededDescription{
