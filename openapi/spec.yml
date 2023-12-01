@@ -89,7 +89,6 @@ components:
       required:
         - id
         - name
-        - description
         - shortDescription
         - type
 

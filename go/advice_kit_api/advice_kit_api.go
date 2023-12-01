@@ -150,7 +150,7 @@ type Experiment = interface{}
 // Validation Provides a either a template about a advice experiment or a textual validation like a checklist item
 type Validation struct {
 	// Description A human-readable description for the validation or for the experiment template. Markdown supported.
-	Description string `json:"description"`
+	Description *string `json:"description,omitempty"`
 
 	// Experiment Provides a experiment json exported from the ui
 	Experiment *Experiment `json:"experiment,omitempty"`
@@ -333,9 +333,9 @@ var swaggerSpec = []string{
 	"df5FsHjJXcihh/n8qULNy3b4faDPUFdt2m3wxSjp/lfa3WfWWpXe+poTZ43jHpXNeBodKdpmUWk+rpbb",
 	"AjVQsFg6tHHY3iK7VNj3ZGsq4lbkuwoNYzV/q3Cp8tJt54XiGzfcbioaqVR69zUysPNhAp+ovvct0dRV",
 	"iGOyhmEPm2OJ3Q/u15tM7316m6n0+0jBx/SI2rX/ExBx2xJQpIfUrsNcvwpwf+RS2Jf4ZOFHKZpXdKxl",
-	"gbvfBwauwTxkx938l5v57eLT/IflnbPhbjn/ZXkXF6f9BpIRt5ooVanpso99f/yUiF4ratwGoiQfNQOn",
-	"r21rxveS4c9un929ZK1cRARn2P5Qt+vVmkzJp8WyMzL8s42fXl2X2F3q3OUsGplPycfJh8kHd0hVKGnF",
-	"yZT8afJx8iGU3sKQqayF8JUir9khO7f/CwAA///BmGUigB0AAA==",
+	"gbvfBwauwTxkx938l5v57eLT/IflnbPhbjn/ZXkXF6f9BpIRt5ooVanpso99Il7t4XHhj9J6VP6dhraR",
+	"Gd89hj+0fXY3kbVyMRCcYfvT3K47azIlnxbLzqzwzzZ+bHV9YXeNc9exaEg+JR8nHyYf3CFVoaQVJ1Py",
+	"p8nHyYdQbAtDprIWwteGvGaH7Nz+LwAA//9QfRZVch0AAA==",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
