@@ -72,9 +72,12 @@ components:
         name:
           type: string
           description: "A human-readable name for the validation."
+        shortDescription:
+          type: string
+          description: "A human-readable short description for the validation or for the experiment template. Text Only."
         description:
           type: string
-          description: "A human-readable description for the validation or for the experiment template."
+          description: "A human-readable description for the validation or for the experiment template. Markdown supported."
         type:
           type: string
           description: "The type of the validation. Either `EXPERIMENT` or `TEXT`."
@@ -87,6 +90,7 @@ components:
         - id
         - name
         - description
+        - shortDescription
         - type
 
     Experiment:

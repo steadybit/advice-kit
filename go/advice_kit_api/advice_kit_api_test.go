@@ -58,12 +58,14 @@ func TestAdviceDefinition(t *testing.T) {
 				Validation: Ptr([]Validation{
 					{
 						Description: "some desc",
+						ShortDescription: "some short desc",
 						Experiment:  Ptr(Experiment("...experiment here as json export from the UI...")),
 						Id:          "com.steadybit.extension_example.my_advice.experiment1",
 						Name:        "Experiment 1",
 						Type:        "EXPERIMENT",
 					}, {
 						Description: "please check this",
+						ShortDescription: "some short desc",
 						Experiment:  nil,
 						Id:          "com.steadybit.extension_example.my_advice.check1",
 						Name:        "Validation 1",
