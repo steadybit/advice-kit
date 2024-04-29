@@ -2,7 +2,8 @@
 
 ## v1.0.0
 
- - add `templateEngine` to the advice definition. Defaults to `FREEMARKER` 
+ - add `templateEngine` to the advice definition. Defaults to `FREEMARKER`
+ - updated dependencies
 
 ## v0.0.1-beta.6
 
