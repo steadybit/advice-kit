@@ -58,7 +58,6 @@ components:
           enum:
             - LEGACY
             - FREEMARKER
-          default: FREEMARKER
       required:
         - id
         - version
@@ -66,6 +65,7 @@ components:
         - icon
         - assessmentQueryApplicable
         - status
+        - templateEngine
 
 
     Validation:
