@@ -47,11 +47,18 @@ components:
         tags:
           type: array
           items:
-              type: string
+            type: string
           uniqueItems: true
           description: "A list of tags that describe the advice."
         status:
           $ref: '#/components/schemas/AdviceDefinitionStatus'
+        templateEngine:
+          description: "The template engine that is used to render different aspects including validation experiments of the advice."
+          type: string
+          enum:
+            - LEGACY
+            - FREEMARKER
+          default: FREEMARKER
       required:
         - id
         - version
@@ -128,23 +135,23 @@ components:
         - description
 
     AdviceDefinitionStatusActionNeededDescription:
-        title: Action Needed Description
-        description: Provides details description about a advice lifecycle status actions needed
-        type: object
-        properties:
-          summary:
-            type: string
-            description: "A human-readable summary of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
-          motivation:
-            type: string
-            description: "A human-readable motivation of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
-          instruction:
-            type: string
-            description: "A human-readable instructions of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
-        required:
-            - summary
-            - motivation
-            - instruction
+      title: Action Needed Description
+      description: Provides details description about a advice lifecycle status actions needed
+      type: object
+      properties:
+        summary:
+          type: string
+          description: "A human-readable summary of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
+        motivation:
+          type: string
+          description: "A human-readable motivation of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
+        instruction:
+          type: string
+          description: "A human-readable instructions of the action needed in mark down format. (you can use placeholder like ${target.k8s.pod.name})"
+      required:
+        - summary
+        - motivation
+        - instruction
 
     AdviceDefinitionStatusValidationNeeded:
       title: Validation Needed
