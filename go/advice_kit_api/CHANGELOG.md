@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.0
+
+ - Update dependencies
+ - Use updated templating syntax (based on Apache FreeMarker)
+
 ## v0.0.1-beta.6
 
  - add text only validation and there refactoring of the status lifecycle
