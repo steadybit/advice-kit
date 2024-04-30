@@ -1,16 +1,20 @@
 # advice API
 
-This document explains the Advice API, control flow and the contracts behind it. It starts with a high-level overview and then explains every API in detail.
+This document explains the Advice API, control flow and the contracts behind it. It starts with a high-level overview
+and then explains every API in detail.
 
 ## Overview
 
-Advice are implemented with the help of AdviceKit and the Advice API through the implementation of a advice provider. Advice providers are HTTP servers implementing the Advice API to describe which advice are delivered. The following diagram illustrates who is issuing calls and in what phases.
+Advice are implemented with the help of AdviceKit and the Advice API through the implementation of a advice provider.
+Advice providers are HTTP servers implementing the Advice API to describe which advice are delivered. The following
+diagram illustrates who is issuing calls and in what phases.
 
 ![UML sequence diagram showing in what order the APIs are called](advice-flow.svg)
 
 As can be seen above, the advice provider is called by the Steadybit agent in two phases:
 
-- In the advice registration phase, Steadybit learns about the supported advice. Once this phase is completed, advice will be
+- In the advice registration phase, Steadybit learns about the supported advice. Once this phase is completed, advice
+  will be
   scheduled within the agent.
 - The advice will be called by the agent's scheduler in the execution phase.
 
@@ -48,7 +52,8 @@ This endpoint needs to be [registered with Steadybit agents](./advice-registrati
 
 ## Advice Description
 
-A advice description is required for each advice. The HTTP endpoint serving the description is discovered through the index endpoint.
+A advice description is required for each advice. The HTTP endpoint serving the description is discovered through the
+index endpoint.
 
 ### Example
 
@@ -69,7 +74,7 @@ A advice description is required for each advice. The HTTP endpoint serving the 
     "actionNeeded": {
       "assessmentQuery": "aws.zone > 0 AND aws.zone < 2",
       "description": {
-        "summary": "When availability zone ${target.aws.zone} is failing, your service ${target.k8s.pod.name} is not available.",
+        "summary": "When availability zone ${target.attr('aws.zone')} is failing, your service ${target.attr('k8s.pod.name')} is not available.",
         "motivation": "It is recommended to always split its components into different zones so that in case of a failure of one.",
         "instruction": "Specify the upper limit to be used by defining the   limits   property in your kubernetes manifest: ```...```"
       }
@@ -85,7 +90,7 @@ A advice description is required for each advice. The HTTP endpoint serving the 
           "type": "experiment",
           "description": "...",
           "experiment": {
-            "name": "${target.k8s.cluster-name}/${target.k8s.deployment} faultless redundancy during single pod failure",
+            "name": "${target.attr('k8s.cluster-name')}/${target.attr('k8s.deployment')} faultless redundancy during single pod failure",
             "hypothesis": "When a single pod fails of all requests to an endpoint are successful",
             "lanes": {
               "steps": [
@@ -107,28 +112,28 @@ A advice description is required for each advice. The HTTP endpoint serving the 
                           "key": "k8s.cluster-name",
                           "operator": "EQUALS",
                           "values": [
-                            "${target.k8s.cluster-name}"
+                            "${target.attr('k8s.cluster-name')}"
                           ]
                         },
                         {
                           "key": "k8s.namespace",
                           "operator": "EQUALS",
                           "values": [
-                            "${target.k8s.namespace}"
+                            "${target.attr('k8s.namespace')}"
                           ]
                         },
                         {
                           "key": "k8s.deployment",
                           "operator": "EQUALS",
                           "values": [
-                            "${target.k8s.deployment}"
+                            "${target.attr('k8s.deployment')}"
                           ]
                         },
                         {
                           "key": "k8s.container.name",
                           "operator": "EQUALS",
                           "values": [
-                            "${target.k8s.container.name}"
+                            "${target.attr('k8s.container.name')}"
                           ]
                         }
                       ]
@@ -151,7 +156,7 @@ A advice description is required for each advice. The HTTP endpoint serving the 
     },
     "implemented": {
       "description": {
-        "summary": "When availability zone ${target.aws.zones?.[0]} is failing, your service ${target.k8s.pod.name} is still available."
+        "summary": "When availability zone ${target.attr('aws.zones',0)} is failing, your service ${target.attr('k8s.pod.name')} is still available."
       }
     }
   }
@@ -160,19 +165,27 @@ A advice description is required for each advice. The HTTP endpoint serving the 
 
 ### Advice Markdown Text and its substitutions
 
-The `description` field of the advice description is a map of markdown texts. The markdown texts can contain placeholders which will be substituted by the agent with the values of the target. The placeholders are enclosed in `${target.KEY}`. 
-The following placeholders are supported:
-* ${target.key} --> replaces with the value of the attribute with the given key as `*value*`
-* ${target.key:normal} --> replaces with the value of the attribute with the given key as `value`
-* ${target.key[0]} --> replaces with the value of the first attribute with the given key as `*value*`
-* ${target.key[1]} --> replaces with the value of the second attribute with the given key as `*value2*`
-* ${target.key[]} --> replaces with the value of the second attribute with the given key as `*value, value2*`
-* ${target.key[1]:normal} --> replaces with the value of the second attribute with the given key as `value2`
-* ${target.key:length} --> replaces with the value count of the attribute as e.g. `*42*`
-* ${target.key:length:normal} --> replaces with the value count of the attribute as e.g. `42`
+All texts of the advice definition can contain markdown texts. The markdown texts can contain placeholders which will be
+substituted with the values of the target. This is done using Apache FreeMarker templates.
+
+The experiment.json in the validation section will also be post-processed by FreeMarker.
+
+The following syntax is supported:
+* `${target.attr('key')}` --> will output the value of the given attribute. If no value is found, it will output `<unknown>`. If multiple values are found, it will output `<multiple values found>`
+* `${target.attr('key', 'default')}` --> will output the value of the given attribute. If no value is found, it will output the specified default value. If multiple values are found, it will output `<multiple values found>`
+* `${target.attr('key', 0)}` --> will output the value of the given attribute at the specified index. If no value is found, it will output `<unknown>`
+* `${target.attr('key', 0, 'default')}` --> will output the value of the given attribute at the specified index. If no value is found, it will output the specified default value.
+
+You can also use FreeMarker directives, e.g.:
+* `<#list target.attrs('key') as item>${item}<#sep>, </#list>` -> will output all values as comma-separated list
+* `<#if target.id.type=="com.steadybit.extension_kubernetes.kubernetes-deployment">com.steadybit.extension_kubernetes.pod_count_check<#elseif target.id.type=="com.steadybit.extension_kubernetes.kubernetes-statefulset">com.steadybit.extension_kubernetes.pod_count_check_statefulset<#else>com.steadybit.extension_kubernetes.pod_count_check_daemonset</#if>` -> conditional evaluation
+
+`attr` and `attrs` are convenience methods to access the target attributes and provide proper defaults instead of [throwing exceptions](https://freemarker.apache.org/docs/app_faq.html#faq_picky_about_missing_vars). You can still use the default syntax, but we wouldn't recommend it.
+* `${target.attributes['key'][0]}` --> will output the value of the given attribute. If no value is found, the template processing will fail and wil output the plain template text. 
 
 ### References
 
+- [FreeMarker](https://freemarker.apache.org/docs/index.html)
 - [Go API](https://github.com/steadybit/advice-kit/tree/main/go/advice_kit_api): `adviceDefinition`
 - [OpenAPI Schema](https://github.com/steadybit/advice-kit/tree/main/openapi): `weakspotDescription`
 
