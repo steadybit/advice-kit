@@ -178,7 +178,7 @@ The following syntax is supported:
 
 You can also use FreeMarker directives, e.g.:
 * `<#list target.attrs('key') as item>${item}<#sep>, </#list>` -> will output all values as comma-separated list
-* `<#if target.id.type=="com.steadybit.extension_kubernetes.kubernetes-deployment">com.steadybit.extension_kubernetes.pod_count_check<#elseif target.id.type=="com.steadybit.extension_kubernetes.kubernetes-statefulset">com.steadybit.extension_kubernetes.pod_count_check_statefulset<#else>com.steadybit.extension_kubernetes.pod_count_check_daemonset</#if>` -> conditional evaluation
+* `<#if target.id.type=='com.steadybit.extension_kubernetes.kubernetes-deployment'>com.steadybit.extension_kubernetes.pod_count_check<#elseif target.id.type=='com.steadybit.extension_kubernetes.kubernetes-statefulset'>com.steadybit.extension_kubernetes.pod_count_check_statefulset<#else>com.steadybit.extension_kubernetes.pod_count_check_daemonset</#if>` -> conditional evaluation
 
 `attr` and `attrs` are convenience methods to access the target attributes and provide proper defaults instead of [throwing exceptions](https://freemarker.apache.org/docs/app_faq.html#faq_picky_about_missing_vars). You can still use the default syntax, but we wouldn't recommend it.
 * `${target.attributes['key'][0]}` --> will output the value of the given attribute. If no value is found, the template processing will fail and wil output the plain template text. 
