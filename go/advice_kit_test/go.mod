@@ -1,6 +1,6 @@
 module github.com/steadybit/advice-kit/go/advice_kit_test
 
-go 1.21
+go 1.22
 
 require (
 	github.com/getkin/kin-openapi v0.124.0
