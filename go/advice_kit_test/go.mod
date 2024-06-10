@@ -3,12 +3,12 @@ module github.com/steadybit/advice-kit/go/advice_kit_test
 go 1.22
 
 require (
-	github.com/getkin/kin-openapi v0.124.0
+	github.com/getkin/kin-openapi v0.125.0
 	github.com/go-resty/resty/v2 v2.13.1
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.6
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/text v0.15.0
+	golang.org/x/text v0.16.0
 )
 
 replace github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.6 => ../advice_kit_api
