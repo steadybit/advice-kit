@@ -3,7 +3,7 @@ module github.com/steadybit/advice-kit/go/advice_kit_api
 go 1.22
 
 require (
-	github.com/getkin/kin-openapi v0.124.0
+	github.com/getkin/kin-openapi v0.125.0
 	github.com/oapi-codegen/runtime v1.1.1
 )
 
