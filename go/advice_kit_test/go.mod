@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/getkin/kin-openapi v0.127.0
-	github.com/go-resty/resty/v2 v2.13.1
+	github.com/go-resty/resty/v2 v2.14.0
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.6
 	github.com/stretchr/testify v1.9.0
@@ -26,6 +26,6 @@ require (
 	github.com/oapi-codegen/runtime v1.1.1 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/net v0.27.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
