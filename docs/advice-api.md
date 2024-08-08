@@ -1,29 +1,29 @@
 # advice API
 
-This document explains the Advice API, control flow and the contracts behind it. It starts with a high-level overview
+This document explains the Advice API, control flow, and its contracts. It starts with a high-level overview
 and then explains every API in detail.
 
 ## Overview
 
-Advice are implemented with the help of AdviceKit and the Advice API through the implementation of a advice provider.
-Advice providers are HTTP servers implementing the Advice API to describe which advice are delivered. The following
+Advice is implemented with the help of AdviceKit and the Advice API through the implementation of an advice provider.
+Advice providers are HTTP servers that implement the Advice API to describe which advice is delivered. The following
 diagram illustrates who is issuing calls and in what phases.
 
 ![UML sequence diagram showing in what order the APIs are called](advice-flow.svg)
 
 As can be seen above, the advice provider is called by the Steadybit agent in two phases:
 
-- In the advice registration phase, Steadybit learns about the supported advice. Once this phase is completed, advice
-  will be
-  scheduled within the agent.
-- The advice will be called by the agent's scheduler in the execution phase.
+- In the advice **registration phase**, Steadybit learns about the supported advice. Once this phase is completed, calling for advice will be scheduled with the agent.
+- The agent's scheduler will call for advice in the **execution phase**.
 
-The following sections explain the various API endpoints, their responsibilities and structures in more detail.
+The following sections explain the various API endpoints, their responsibilities, and structures in more detail.
 
 ## Index Response
 
 As the name implies, this is the root of a advice provider and returns a list of supported Advice. Or,
 more specifically, HTTP endpoints that the agent should call to learn more about them.
+
+All paths will be resolved relative to the URL used to register the extension at the agent. For example, if `https://extension/some-path` was used to register and this endpoint returns `/advice/bad-dogs,` the agent will make the request to `https://extension/some-path/advice/bad-dogs.` This allows extensions to run behind reverse proxies, rewriting the path. 
 
 This endpoint needs to be [registered with Steadybit agents](./advice-registration.md).
 
