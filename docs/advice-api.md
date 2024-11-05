@@ -1,4 +1,4 @@
-# advice API
+# Advice API
 
 This document explains the Advice API, control flow, and its contracts. It starts with a high-level overview
 and then explains every API in detail.
