@@ -163,6 +163,14 @@ index endpoint.
 }
 ```
 
+### Validations
+
+Validations define how a given advice can be checked.
+
+This can be done manually by following the description given in the validation, indicated by validation type `text`, or automatically through an experiment, indicated by validation type `experiment`.  
+Experiments can be created in the UI based on the experiment definition given in the advice field `experiment` or an experiment template definition given in `experimentTemplate`.
+Examples of both can be downloaded from the UI in the corresponding application sections.
+
 ### Advice Markdown Text and its substitutions
 
 All texts of the advice definition can contain markdown texts. The markdown texts can contain placeholders which will be
