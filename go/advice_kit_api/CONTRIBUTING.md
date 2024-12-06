@@ -3,7 +3,7 @@
 ## Installing Required Tools
 
 ```sh
-go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@2cf7fcf5b26d1a4362e7c300bd65c20f4f6c4298
+go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.4.0
 ```
 
 ## Executing the Generator

@@ -5,7 +5,7 @@ the [advice kit go api](https://github.com/steadybit/advice-kit/tree/main/go/adv
 
 The module encapsulates the following technical aspects:
 
-- compatibility kit. Checks wether the extension is adhering to the advice kit specification.
+- compatibility kit. Checks whether the extension is adhering to the advice kit specification.
 
 ## Installation
 

@@ -8,7 +8,6 @@ The Steadybit AdviceKit enables the extension of Steadybit with new advice capab
 
 We recommend that you read the following documentation to get started with AdviceKit.
 
-
 - [Advice API](/docs/advice-api.md)
 - [Advice Registration](/docs/advice-registration.md)
 - [Terminology](/docs/terminology.md)
