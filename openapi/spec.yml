@@ -1,19 +1,15 @@
 openapi: 3.1.0
 info:
   title: Steadybit AdviceKit API
-  version: 1.0.0
+  version: 1.1.0
   license:
     name: MIT
     identifier: MIT
-consumes:
-  - application/json
-produces:
-  - application/json
 components:
   schemas:
     AdviceList:
-      title: Advice List
-      description: Lists all advice that the platform/agent could consume.
+      title: "Advice List"
+      description: "Lists all advice that the platform/agent could consume."
       type: object
       properties:
         advice:
@@ -25,8 +21,8 @@ components:
         - advice
 
     AdviceDefinition:
-      title: Advice Description
-      description: Provides details about a advice
+      title: "Advice Description"
+      description: "Provides details about advice."
       type: object
       properties:
         id:
@@ -40,14 +36,14 @@ components:
           description: "A human-readable label for the advice."
         icon:
           type: string
-          description: "A svg of an icon that represents the advice."
+          description: "An svg of an icon that represents the advice, e.g. `data:image/svg+xml,%3Csvg....svg%3E%0A`."
         assessmentQueryApplicable:
           type: string
-          description: "A Assessment Target Base Query that is used identifies targets that could have this advice."
+          description: "An Assessment Target Base Query that identifies targets that could have this advice."
         tags:
           type: array
           items:
-              type: string
+            type: string
           uniqueItems: true
           description: "A list of tags that describe the advice."
         status:
@@ -60,10 +56,9 @@ components:
         - assessmentQueryApplicable
         - status
 
-
     Validation:
-      title: Advice Validation
-      description: Provides a either a template about a advice experiment or a textual validation like a checklist item
+      title: "Advice Validation"
+      description: "Provides either a textual explanation, an experiment or an experiment template to validate the advice recommendations."
       type: object
       properties:
         id:
@@ -80,12 +75,14 @@ components:
           description: "A human-readable description for the validation or for the experiment template. Markdown supported."
         type:
           type: string
-          description: "The type of the validation. Either `EXPERIMENT` or `TEXT`."
+          description: "The type of the validation. Distinguishes between a textual description of a manual validation and a dynamic validation by an experiment."
           enum:
             - EXPERIMENT
             - TEXT
         experiment:
           $ref: '#/components/schemas/Experiment'
+        experimentTemplate:
+          $ref: '#/components/schemas/ExperimentTemplate'
       required:
         - id
         - name
@@ -93,13 +90,25 @@ components:
         - type
 
     Experiment:
-      title: Advice Experiment
-      description: Provides a experiment json exported from the ui
+      title: "Advice Experiment"
+      description: |
+        Provides an experiment definition to automate the validation. 
+        It may contain advice placeholders, which will be substituted with target properties, but otherwise contains only fixed values.
+        An experiment definition can be exported as JSON from the UI.
+      ref: any
+
+    ExperimentTemplate:
+      title: "Advice Experiment Template"
+      description: |
+        Provides an experiment template definition to automate the validation. 
+        It may contain advice placeholders, which will be substituted with target properties, and supports experiment template variables, which can be set dynamically during the experiment creation process through the UI.
+        An experiment template definition can be exported as JSON from the UI.
+        An experiment template definition has precedence over an experiment definition. For compatibility reasons both can be given.
       ref: any
 
     AdviceDefinitionStatus:
-      title: Advice Description
-      description: Provides details about a advice
+      title: "Advice Description"
+      description: "Provides details about advice."
       type: object
       properties:
         actionNeeded:
@@ -114,8 +123,8 @@ components:
         - implemented
 
     AdviceDefinitionStatusActionNeeded:
-      title: Action Needed
-      description: Provides details about a advice lifecycle status actions needed
+      title: "Action Needed"
+      description: "Provides details about an advice lifecycle status actions needed."
       type: object
       properties:
         assessmentQuery:
@@ -128,27 +137,27 @@ components:
         - description
 
     AdviceDefinitionStatusActionNeededDescription:
-        title: Action Needed Description
-        description: Provides details description about a advice lifecycle status actions needed
-        type: object
-        properties:
-          summary:
-            type: string
-            description: "A human-readable summary of the action needed in mark down format. (you can use placeholder like ${target.attr('k8s.pod.name')})"
-          motivation:
-            type: string
-            description: "A human-readable motivation of the action needed in mark down format. (you can use placeholder like ${target.attr('k8s.pod.name')})"
-          instruction:
-            type: string
-            description: "A human-readable instructions of the action needed in mark down format. (you can use placeholder like ${target.attr('k8s.pod.name')})"
-        required:
-            - summary
-            - motivation
-            - instruction
+      title: "Action Needed Description"
+      description: "Provides details description about advice lifecycle status actions needed."
+      type: object
+      properties:
+        summary:
+          type: string
+          description: "A human-readable summary of the action needed in mark down format. (you can use placeholder like ${target.attr('k8s.pod.name')})"
+        motivation:
+          type: string
+          description: "A human-readable motivation of the action needed in mark down format. (you can use placeholder like ${target.attr('k8s.pod.name')})"
+        instruction:
+          type: string
+          description: "A human-readable instructions of the action needed in mark down format. (you can use placeholder like ${target.attr('k8s.pod.name')})"
+      required:
+        - summary
+        - motivation
+        - instruction
 
     AdviceDefinitionStatusValidationNeeded:
-      title: Validation Needed
-      description: Provides details about a advice lifecycle status validation needed
+      title: "Validation Needed"
+      description: "Provides details about advice lifecycle status validation needed."
       type: object
       properties:
         description:
@@ -163,8 +172,8 @@ components:
         - description
 
     AdviceDefinitionStatusValidationNeededDescription:
-      title: Validation Needed Description
-      description: Provides details description about a advice lifecycle status validation needed
+      title: "Validation Needed Description"
+      description: "Provides details description about advice lifecycle status validation needed."
       type: object
       properties:
         summary:
@@ -174,8 +183,8 @@ components:
         - summary
 
     AdviceDefinitionStatusImplemented:
-      title: Status Implemented
-      description: Provides details about a advice lifecycle status implemented
+      title: "Status Implemented"
+      description: "Provides details about advice lifecycle status implemented."
       type: object
       properties:
         description:
@@ -183,10 +192,9 @@ components:
       required:
         - description
 
-
     AdviceDefinitionStatusImplementedDescription:
-      title: Status Implemented Description
-      description: Provides details description about a advice lifecycle status implemented
+      title: "Status Implemented Description"
+      description: "Provides details description about a advice lifecycle status implemented."
       type: object
       properties:
         summary:
@@ -196,49 +204,43 @@ components:
         - summary
 
     DescribingEndpointReference:
-      title: HTTP Endpoint Reference
-      description: HTTP endpoint which the Steadybit platform/agent could communicate with.
+      title: "HTTP Endpoint Reference"
+      description: "HTTP endpoint which the Steadybit platform/agent could communicate with."
       properties:
         path:
-          description: Absolute path of the HTTP endpoint.
+          description: "Absolute path of the HTTP endpoint."
           type: string
           pattern: ^/.*$
         method:
-          description: HTTP method to use when calling the HTTP endpoint.
+          description: "HTTP method to use when calling the HTTP endpoint."
           type: string
           enum:
             - GET
       required:
         - path
         - method
+
     AdviceKitError:
       title: Error
-      description: >-
-        RFC 7807 Problem Details for HTTP APIs compliant response body for error
-        scenarios
+      description: "RFC 7807 Problem Details for HTTP APIs compliant response body for error scenarios"
       properties:
         type:
           type: string
-          description: A URI reference that identifies the problem type.
+          description: "A URI reference that identifies the problem type."
         title:
           type: string
-          description: 'A short, human-readable summary of the problem type.'
+          description: "A short, human-readable summary of the problem type."
         detail:
           type: string
-          description: >-
-            A human-readable explanation specific to this occurrence of the
-            problem.
+          description: "A human-readable explanation specific to this occurrence of the problem."
         instance:
           type: string
-          description: >-
-            A URI reference that identifies the specific occurrence of the
-            problem.
+          description: "A URI reference that identifies the specific occurrence of the problem."
       required:
         - title
   responses:
     AdviceListResponse:
-      title: Advice List Response
-      description: Response for the advice list endpoint
+      description: "Response for the advice list endpoint."
       content:
         application/json:
           schema:
@@ -246,8 +248,7 @@ components:
               - $ref: '#/components/schemas/AdviceList'
               - $ref: '#/components/schemas/AdviceKitError'
     AdviceDefinitionResponse:
-      title: Describe Advice Response
-      description: Response for the describe advice endpoint
+      description: "Response for the describe advice endpoint."
       content:
         application/json:
           schema:
