@@ -7,7 +7,7 @@ require (
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.6
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/text v0.21.0
+	golang.org/x/text v0.22.0
 )
 
 replace github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.6 => ../advice_kit_api
