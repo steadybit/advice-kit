@@ -79,6 +79,9 @@ components:
           enum:
             - EXPERIMENT
             - TEXT
+        experimentMultiplierAttribute:
+          type: string
+          description: "The attribute that is used to multiply the validation experiment. The attribute must be an array."
         experiment:
           $ref: '#/components/schemas/Experiment'
         experimentTemplate:
