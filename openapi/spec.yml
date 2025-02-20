@@ -79,6 +79,9 @@ components:
           enum:
             - EXPERIMENT
             - TEXT
+        forEachAttribute:
+          type: string
+          description: "The attribute that is used to multiply the validation."
         experiment:
           $ref: '#/components/schemas/Experiment'
         experimentTemplate:

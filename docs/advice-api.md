@@ -89,8 +89,9 @@ index endpoint.
           "name": "AWS Single Zone Template",
           "type": "experiment",
           "description": "...",
+          "forEachAttribute": "k8s.dependencies",
           "experiment": {
-            "name": "${target.attr('k8s.cluster-name')}/${target.attr('k8s.deployment')} faultless redundancy during single pod failure",
+            "name": "${target.attr('k8s.cluster-name')}/${target.attr('k8s.deployment')} faultless redundancy during single pod failure for ${each.value}",
             "hypothesis": "When a single pod fails of all requests to an endpoint are successful",
             "lanes": {
               "steps": [
@@ -126,14 +127,7 @@ index endpoint.
                           "key": "k8s.deployment",
                           "operator": "EQUALS",
                           "values": [
-                            "${target.attr('k8s.deployment')}"
-                          ]
-                        },
-                        {
-                          "key": "k8s.container.name",
-                          "operator": "EQUALS",
-                          "values": [
-                            "${target.attr('k8s.container.name')}"
+                            "${each.value}"
                           ]
                         }
                       ]
@@ -183,6 +177,7 @@ The following syntax is supported:
 * `${target.attr('key', 'default')}` --> will output the value of the given attribute. If no value is found, it will output the specified default value. If multiple values are found, it will output `<multiple values found>`
 * `${target.attr('key', 0)}` --> will output the value of the given attribute at the specified index. If no value is found, it will output `<unknown>`
 * `${target.attr('key', 0, 'default')}` --> will output the value of the given attribute at the specified index. If no value is found, it will output the specified default value.
+* `${each.value}` --> will output the value of the current iteration of the attributes content defined in the advice validation `forEachAttribute`. If no value is found, it will output `<unknown>`.
 
 You can also use FreeMarker directives, e.g.:
 * `<#list target.attrs('key') as item>${item}<#sep>, </#list>` -> will output all values as comma-separated list
