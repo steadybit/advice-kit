@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.1
+
+- Validation multiplier with attribute forEachAttribute
+
 ## v1.1.0
 
 - Support experiment templates in validations
