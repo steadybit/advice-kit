@@ -186,6 +186,63 @@ You can also use FreeMarker directives, e.g.:
 `attr` and `attrs` are convenience methods to access the target attributes and provide proper defaults instead of [throwing exceptions](https://freemarker.apache.org/docs/app_faq.html#faq_picky_about_missing_vars). You can still use the default syntax, but we wouldn't recommend it.
 * `${target.attributes['key'][0]}` --> will output the value of the given attribute. If no value is found, the template processing will fail and wil output the plain template text. 
 
+### Flexible Validations with Dynamic Dependency Iteration
+Advice has been enhanced to support a flexible number of validations. This approach allows you to define an experiment for each dependency — ideal for scenarios where a high-critical service relies on one or more lower-critical services.
+
+#### Concept Overview
+When your targets include properties that list conflicting dependencies (for example, a property such as my.target.downstream.web.dependencies), you can leverage the Advice API’s forEachAttribute feature. This mechanism iterates over each individual value found in the target attribute, enabling you to dynamically create and validate an experiment for every dependency. Within your experiment definition, the placeholder ${each.value} is used to inject the specific dependency value for that iteration.
+
+#### Practical Example
+A concrete example of this approach is implemented in our [loadtest-extension](https://github.com/steadybit/extension-loadtest/blob/f039cbb8e443a442df5141163587fcde8685248b/extloadtest/advice_dependencies.go#L125), where we create a validation element for every host.hostname attribute of a target. In that extension, each individual hostname is substituted into the experiment description and configuration using ${each.value}.
+
+The following JSON snippet illustrates how to set up a dynamic validation:
+```json
+{
+  "validation": [
+    {
+      "id": "your.advice.validation.id",
+      "name": "Dynamic Dependency Validation",
+      "type": "experiment",
+      "forEachAttribute": "my.target.downstream.web.dependencies",
+      "experiment": {
+        "name": "Experiment for dependency ${each.value}",
+        "hypothesis": "Ensure resilience when dependency ${each.value} is unavailable",
+        "lanes": {
+          "steps": [
+            {
+              "type": "action",
+              "parameters": {
+                "duration": "60s",
+                "cpuLoad": 100,
+                "workers": 0
+              },
+              "actionType": "com.steadybit.extension_container.stress_cpu",
+              "radius": {
+                "targetType": "your.target.type",
+                "predicate": {
+                  "operator": "EQUALS",
+                  "key": "host.hostname",
+                  "values": [
+                    "${each.value}"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+#### How It Works
+- Attribute Iteration: The forEachAttribute key specifies the target property that contains the dependencies. For each value in this property, an individual experiment is generated.
+- Dynamic Substitution: Within the experiment configuration, ${each.value} is substituted with the current dependency value from the target. This allows the experiment’s name, hypothesis, and other details to be customized per dependency.
+- Use Cases: This mechanism is particularly useful when you need to validate the configuration or behavior of services that depend on various lower-critical components.
+
+By incorporating this flexible validation strategy, you can ensure that every dependency is individually accounted for, thereby enhancing the resilience and observability of your systems.
+
 ### References
 
 - [FreeMarker](https://freemarker.apache.org/docs/index.html)
