@@ -1,6 +1,8 @@
 module github.com/steadybit/advice-kit/go/advice_kit_test
 
 go 1.22
+toolchain go1.23.7
+
 require (
 	github.com/getkin/kin-openapi v0.129.0
 	github.com/go-resty/resty/v2 v2.16.5
@@ -26,6 +28,6 @@ require (
 	github.com/oasdiff/yaml3 v0.0.0-20241210130736-a94c01f36349 // indirect
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/net v0.33.0 // indirect
+	golang.org/x/net v0.36.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
