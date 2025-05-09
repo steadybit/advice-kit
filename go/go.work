@@ -1,6 +1,6 @@
-go 1.22
+go 1.24
 
 use (
-	advice_kit_test
 	advice_kit_api
+	advice_kit_test
 )
