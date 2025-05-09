@@ -11,8 +11,6 @@ require (
 	golang.org/x/text v0.25.0
 )
 
-replace github.com/steadybit/advice-kit/go/advice_kit_api v0.0.1-beta.6 => ../advice_kit_api
-
 require (
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
