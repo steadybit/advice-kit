@@ -6,7 +6,7 @@ require (
 	github.com/getkin/kin-openapi v0.132.0
 	github.com/go-resty/resty/v2 v2.16.5
 	github.com/jarcoal/httpmock v1.4.0
-	github.com/steadybit/advice-kit/go/advice_kit_api v1.1.1
+	github.com/steadybit/advice-kit/go/advice_kit_api v1.2.0
 	github.com/stretchr/testify v1.10.0
 	golang.org/x/text v0.25.0
 )
