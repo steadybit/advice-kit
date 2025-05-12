@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0
+
+- Update dependencies (golang 1.24)
+
 ## v1.1.1
 
 - Validation multiplier with attribute forEachAttribute
