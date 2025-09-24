@@ -39,7 +39,10 @@ components:
           description: "An svg of an icon that represents the advice, e.g. `data:image/svg+xml,%3Csvg....svg%3E%0A`."
         assessmentQueryApplicable:
           type: string
-          description: "An Assessment Target Base Query that identifies targets that could have this advice."
+          description: "A Target Query that identifies targets that could have this advice."
+        assessmentQueryExclude:
+          type: string
+          description: "A Target Query that identifies targets that should be excluded by this advice."
         tags:
           type: array
           items:

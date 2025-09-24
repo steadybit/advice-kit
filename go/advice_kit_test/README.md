@@ -1,4 +1,4 @@
-# ActionKit Go Test SDK
+# AdviceKit Go Test SDK
 
 This module contains helper and interfaces which will help you to test advice using
 the [advice kit go api](https://github.com/steadybit/advice-kit/tree/main/go/advice_kit_api).

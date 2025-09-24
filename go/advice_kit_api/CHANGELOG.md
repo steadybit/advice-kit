@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1
+
+- Add AssessmentQueryExclude
+
 ## v1.2.0
 
 - Update dependencies (golang 1.24)
