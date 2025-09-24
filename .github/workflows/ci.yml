@@ -25,24 +25,39 @@ jobs:
       run:
         working-directory: ./go/advice_kit_api
     steps:
-    - uses: actions/checkout@v5
-      with:
-        # increased fetch depth to support git diff
-        fetch-depth: 2
-    - uses: actions/setup-go@v6
-      with:
-        go-version: '1.24'
-    - run: ./build.sh
-    - run: git diff --exit-code
-      name: "Ensure that Go API changes (as a consequence of OpenAPI spec changes) are checked in"
-    - run: go get
-    - run: go test
+      - uses: actions/checkout@v5
+        with:
+          # increased fetch depth to support git diff
+          fetch-depth: 2
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.24'
+      - run: ./build.sh
+      - run: git diff --exit-code
+        name: "Ensure that Go API changes (as a consequence of OpenAPI spec changes) are checked in"
+      - run: go get
+      - run: go test
 
   go-advice-kit-test:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./go/advice_kit_test
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.24'
+      - name: Audit
+        run: |
+          go mod download
+          make audit
+
+  go-advice-kit-sdk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./go/advice_kit_sdk
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
