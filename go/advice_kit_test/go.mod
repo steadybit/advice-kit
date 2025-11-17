@@ -8,7 +8,7 @@ require (
 	github.com/jarcoal/httpmock v1.4.1
 	github.com/steadybit/advice-kit/go/advice_kit_api v1.2.1
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/text v0.30.0
+	golang.org/x/text v0.31.0
 )
 
 require (
