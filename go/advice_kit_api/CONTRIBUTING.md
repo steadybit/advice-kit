@@ -15,5 +15,5 @@ go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.4.0
 ## Releasing
 
  1. Update `CHANGELOG.md`
- 2. Set the tag: `git tag -a go/advice_kit_api/v0.0.1-beta.7 -m go/advice_kit_api/v0.0.1-beta.7`
- 3. Push the tag: `git push origin go/advice_kit_api/v0.0.1-beta.7`
+ 2. Set the tag: `git tag -a go/advice_kit_api/v1.2.2 -m go/advice_kit_api/v1.2.2`
+ 3. Push the tag: `git push origin go/advice_kit_api/v1.2.2`
