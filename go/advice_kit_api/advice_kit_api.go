@@ -36,8 +36,8 @@ type AdviceDefinition struct {
 	// AssessmentQueryExclude A Target Query that identifies targets that should be excluded by this advice.
 	AssessmentQueryExclude *string `json:"assessmentQueryExclude,omitempty"`
 
-			// Category An optional category for the advice, e.g. 'Reliability', 'Scalability', 'Redundancy'.
-	Cateygory *string `json:"category,omitempty"`
+	// Category An optional category for the advice, e.g. 'Reliability', 'Scalability', 'Redundancy'.
+	Category *string `json:"category,omitempty"`
 
 	// Icon An svg of an icon that represents the advice, e.g. `data:image/svg+xml,%3Csvg....svg%3E%0A`.
 	Icon string `json:"icon"`
