@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.3
+
+- Add optional category field to AdviceDefinition
+
 ## v1.2.2
 
 - Update dependencies

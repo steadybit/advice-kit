@@ -43,6 +43,9 @@ components:
         assessmentQueryExclude:
           type: string
           description: "A Target Query that identifies targets that should be excluded by this advice."
+        category:
+          type: string
+          description: "An optional category for the advice, e.g. 'Reliability', 'Scalability', 'Redundancy'."
         tags:
           type: array
           items:
