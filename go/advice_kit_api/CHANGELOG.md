@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.2.3
+## v1.2.4
 
 - Add optional category field to AdviceDefinition
 
