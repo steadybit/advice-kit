@@ -8,7 +8,6 @@ import (
 
 	"github.com/steadybit/advice-kit/go/advice_kit_api"
 	"github.com/steadybit/extension-kit/exthttp"
-	"github.com/steadybit/extension-kit/extutil"
 )
 
 var (
@@ -56,7 +55,7 @@ func applyExcludeQuery(fn AdviceFn, query string) AdviceFn {
 	return func() advice_kit_api.AdviceDefinition {
 		a := fn()
 		if a.AssessmentQueryExclude != nil && *a.AssessmentQueryExclude != "" {
-			a.AssessmentQueryExclude = extutil.Ptr(fmt.Sprintf("(%s) OR (%s)", *a.AssessmentQueryExclude, query))
+			a.AssessmentQueryExclude = new(fmt.Sprintf("(%s) OR (%s)", *a.AssessmentQueryExclude, query))
 		} else {
 			a.AssessmentQueryExclude = &query
 		}

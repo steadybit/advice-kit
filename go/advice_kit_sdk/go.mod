@@ -1,8 +1,6 @@
 module github.com/steadybit/advice-kit/go/advice_kit_sdk
 
-go 1.24.0
-
-toolchain go1.25.4
+go 1.26.5
 
 require (
 	github.com/steadybit/advice-kit/go/advice_kit_api v1.2.2

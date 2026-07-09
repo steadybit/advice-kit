@@ -1,5 +1,6 @@
 package advice_kit_api
 
+//go:fix inline
 func Ptr[T any](val T) *T {
-	return &val
+	return new(val)
 }

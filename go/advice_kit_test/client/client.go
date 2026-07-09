@@ -43,7 +43,7 @@ func (c *clientImpl) DescribeAdvice(ref advice_kit_api.DescribingEndpointReferen
 	return description, err
 }
 
-func (c *clientImpl) executeAndValidate(ref advice_kit_api.DescribingEndpointReference, result interface{}, schemaName string) error {
+func (c *clientImpl) executeAndValidate(ref advice_kit_api.DescribingEndpointReference, result any, schemaName string) error {
 	method, path := getMethodAndPath(ref)
 	res, err := c.client.R().SetResult(result).Execute(method, path)
 	if err != nil {
@@ -66,7 +66,7 @@ func (c *clientImpl) validateResponseBody(name string, body []byte) error {
 		return fmt.Errorf("component schema '%s' not found", name)
 	}
 
-	var decoded interface{}
+	var decoded any
 	dec := json.NewDecoder(bytes.NewReader(body))
 	dec.UseNumber()
 	err := dec.Decode(&decoded)
