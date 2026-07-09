@@ -55,25 +55,25 @@ func TestAdviceDefinition(t *testing.T) {
 				Description: AdviceDefinitionStatusValidationNeededDescription{
 					Summary: "",
 				},
-				Validation: Ptr([]Validation{
+				Validation: new([]Validation{
 					{
-						Description:      Ptr("some desc"),
+						Description:      new("some desc"),
 						ShortDescription: "some short desc",
-						Experiment:       Ptr(Experiment("...experiment here as json export from the UI...")),
+						Experiment:       new(Experiment("...experiment here as json export from the UI...")),
 						Id:               "com.steadybit.extension_example.my_advice.experiment1",
 						Name:             "Experiment 1",
 						Type:             "EXPERIMENT",
 					}, {
-						Description:      Ptr("please check this"),
+						Description:      new("please check this"),
 						ShortDescription: "some short desc",
 						Experiment:       nil,
 						Id:               "com.steadybit.extension_example.my_advice.check1",
 						Name:             "Validation 1",
 						Type:             "TEXT",
 					}, {
-						Description:        Ptr("some desc"),
+						Description:        new("some desc"),
 						ShortDescription:   "some short desc",
-						ExperimentTemplate: Ptr(ExperimentTemplate("...experiment template here as json export from the UI...")),
+						ExperimentTemplate: new(ExperimentTemplate("...experiment template here as json export from the UI...")),
 						Id:                 "com.steadybit.extension_example.my_advice.experimenttemplate1",
 						Name:               "Experiment Template 1",
 						Type:               "EXPERIMENT",
@@ -87,10 +87,10 @@ func TestAdviceDefinition(t *testing.T) {
 
 func TestAdviceKitError(t *testing.T) {
 	v := AdviceKitError{
-		Detail:   Ptr("d"),
-		Instance: Ptr("i"),
+		Detail:   new("d"),
+		Instance: new("i"),
 		Title:    "t",
-		Type:     Ptr("t"),
+		Type:     new("t"),
 	}
 	markAsUsed(t, v)
 }
