@@ -45,6 +45,7 @@ func RegisterAdvice(cfg AdviceConfig, fn AdviceFn) {
 
 	registeredAdvice[id] = struct{}{}
 	exthttp.RegisterHttpHandler(fmt.Sprintf("GET /advice/%s", id), exthttp.GetterAsHandler(applyExcludeQuery(fn, cfg.AdviceExcludeQuery)))
+	exthttp.BumpRevision()
 }
 
 func applyExcludeQuery(fn AdviceFn, query string) AdviceFn {
@@ -66,6 +67,7 @@ func applyExcludeQuery(fn AdviceFn, query string) AdviceFn {
 // ClearRegisteredAdvice clears all registered advice - used for testing. Warning: This will not remove the registered routes from the http server.
 func ClearRegisteredAdvice() {
 	registeredAdvice = make(map[string]struct{})
+	exthttp.BumpRevision()
 }
 
 // GetAdviceList returns a list of all root endpoints of registered advice.
