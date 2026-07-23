@@ -19,7 +19,7 @@ type AdviceFn func() advice_kit_api.AdviceDefinition
 type AdviceConfig struct {
 	DisableAdvice      bool     `json:"disableAdvice" required:"false" split_words:"true" default:"false"`
 	ActiveAdviceList   []string `json:"activeAdviceList" required:"false" split_words:"true" default:"*"`
-	InactiveAdviceList []string `json:"inactiveAdviceList" required:"false" split_words:"true" default:"*"`
+	InactiveAdviceList []string `json:"inactiveAdviceList" required:"false" split_words:"true" default:""`
 	AdviceExcludeQuery string   `json:"adviceExcludeQuery" required:"false" split_words:"true" default:""`
 }
 
