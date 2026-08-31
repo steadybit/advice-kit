@@ -3,7 +3,7 @@ module github.com/steadybit/advice-kit/go/advice_kit_test
 go 1.26
 
 require (
-	github.com/getkin/kin-openapi v0.147.0
+	github.com/getkin/kin-openapi v0.149.0
 	github.com/go-resty/resty/v2 v2.17.2
 	github.com/jarcoal/httpmock v1.4.2
 	github.com/steadybit/advice-kit/go/advice_kit_api v1.2.5
@@ -20,7 +20,7 @@ require (
 	github.com/oasdiff/yaml v0.1.1 // indirect
 	github.com/oasdiff/yaml3 v0.0.14 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
-	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2 // indirect
+	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/net v0.55.0 // indirect
 )
