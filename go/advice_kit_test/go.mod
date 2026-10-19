@@ -3,7 +3,7 @@ module github.com/steadybit/advice-kit/go/advice_kit_test
 go 1.26.0
 
 require (
-	github.com/getkin/kin-openapi v0.149.0
+	github.com/getkin/kin-openapi v0.151.0
 	github.com/go-resty/resty/v2 v2.17.2
 	github.com/jarcoal/httpmock v1.4.2
 	github.com/steadybit/advice-kit/go/advice_kit_api v1.2.5
